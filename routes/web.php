@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'CalendarController@index');
+Route::get('year/{year?}', 'YearController@index')->name('year.index');
 
 Auth::routes([
     'register' => config('calendar.actions.register'),
