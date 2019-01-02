@@ -29,7 +29,7 @@ class DayController extends Controller
     public function create()
     {
         return view('day.create', [
-            'day' => new Day(),
+            'day' => new Day(['date' => date('Y-m-d')]),
             'categories' => Category::all()
         ]);
     }
