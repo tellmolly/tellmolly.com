@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="date">Date</label>
-    <input type="date" class="form-control" id="date" name="date" placeholder="Enter date" value="{{ old('date', $day->date) }}" required>
+    <input type="date" class="form-control {{ $errors->has('date') ? ' is-invalid ' : '' }}" id="date" name="date" placeholder="Enter date" value="{{ old('date', $day->date) }}" required>
     @if($errors->has('date'))
         <div class="invalid-feedback">
             {{ $errors->first('date') }}
@@ -10,7 +10,7 @@
 
 <div class="form-group">
     <label for="category_id">Category</label>
-    <select class="form-control" id="category_id" name="category_id" required>
+    <select class="form-control {{ $errors->has('category_id') ? ' is-invalid ' : '' }}" id="category_id" name="category_id" required>
         <option value="">Choose category</option>
         @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -25,11 +25,10 @@
 
 <div class="form-group">
     <label for="comment">Comment</label>
-    <textarea class="form-control" id="comment" name="comment" placeholder="Enter comment">{{ old('comment', $day->comment) }}</textarea>
+    <textarea class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="comment" name="comment" placeholder="Enter comment">{{ old('comment', $day->comment) }}</textarea>
     @if($errors->has('comment'))
         <div class="invalid-feedback">
             {{ $errors->first('comment') }}
         </div>
     @endif
 </div>
-
