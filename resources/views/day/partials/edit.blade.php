@@ -13,7 +13,7 @@
     <select class="form-control {{ $errors->has('category_id') ? ' is-invalid ' : '' }}" id="category_id" name="category_id" required>
         <option value="">Choose category</option>
         @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
+            <option {{ old('category_id', $day->category_id) == $category->id ? ' selected ' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
         @endforeach
     </select>
     @if($errors->has('category_id'))
