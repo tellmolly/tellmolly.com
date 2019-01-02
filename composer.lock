@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66ca7343889332c2b8ecca11c251430c",
+    "content-hash": "302fa17542e456409423c67e92bc9c55",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3102,6 +3102,68 @@
                 "environment"
             ],
             "time": "2018-07-29T20:33:41+00:00"
+        },
+        {
+            "name": "watson/active",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dwightwatson/active.git",
+                "reference": "576e4072c666bda22182a7266475065f2e7001b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dwightwatson/active/zipball/576e4072c666bda22182a7266475065f2e7001b3",
+                "reference": "576e4072c666bda22182a7266475065f2e7001b3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/config": "~5.5",
+                "illuminate/http": "~5.5",
+                "illuminate/routing": "~5.5",
+                "illuminate/support": "~5.5",
+                "php": ">=7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~1.0",
+                "phpunit/phpunit": "~6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Watson\\Active\\ActiveServiceProvider"
+                    ],
+                    "aliases": {
+                        "Active": "Watson\\Watson\\Facades\\Active"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Watson\\Active\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dwight Watson",
+                    "email": "dwight@studiousapp.com"
+                }
+            ],
+            "description": "Laravel helper for recognising the current route, controller and action",
+            "keywords": [
+                "active",
+                "laravel",
+                "routing"
+            ],
+            "time": "2018-09-07T02:53:52+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
