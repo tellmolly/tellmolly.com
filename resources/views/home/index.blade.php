@@ -3,39 +3,23 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
+            @include('home.partials.menu')
+
             <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <div class="card mb-3">
+                    <div class="card-header">Quick create day</div>
 
                     <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        <ul>
-                            <li>
-                                <a href="{{ route('days.create') }}">
-                                    Create day
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('days.index') }}">
-                                    Show days
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('categories.create') }}">
-                                    Create category
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('categories.index') }}">
-                                    Show categories
-                                </a>
-                            </li>
-                        </ul>
+                        @include('day.widgets.create_day', [
+                            'day' => new \App\Day(['date' => date('Y-m-d')]),
+                            'categories' => \App\Category::all()
+                        ])
                     </div>
                 </div>
             </div>

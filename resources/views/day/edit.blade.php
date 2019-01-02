@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
+            @include('home.partials.menu')
+
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Edit Day</div>
@@ -14,25 +16,9 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('days.update', $day->id) }}" method="post">
-                            @method('PUT')
-                            @csrf
-
-                            @include('day.partials.edit')
-
-                            <button type="submit" class="btn btn-primary">
-                                Edit
-                            </button>
-                        </form>
+                        @include('day.widgets.edit_day')
                         <br>
-                        <form action="{{ route('days.destroy', $day->id) }}" method="post">
-                            @method('DELETE')
-                            @csrf
-
-                            <button type="submit" class="btn btn-danger">
-                                Delete
-                            </button>
-                        </form>
+                        @include('day.widgets.delete_day')
                     </div>
                 </div>
             </div>

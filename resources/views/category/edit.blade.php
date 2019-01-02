@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
+            @include('home.partials.menu')
+
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Edit Category</div>
@@ -14,25 +16,9 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('categories.update', $category->id) }}" method="post">
-                            @method('PUT')
-                            @csrf
-
-                            @include('category.partials.edit')
-
-                            <button type="submit" class="btn btn-primary">
-                                Edit
-                            </button>
-                        </form>
+                        @include('category.widgets.edit_category')
                         <br>
-                        <form action="{{ route('categories.destroy', $category->id) }}" method="post">
-                            @method('DELETE')
-                            @csrf
-
-                            <button type="submit" class="btn btn-danger">
-                                Delete
-                            </button>
-                        </form>
+                        @include('category.widgets.delete_category')
                     </div>
                 </div>
             </div>
