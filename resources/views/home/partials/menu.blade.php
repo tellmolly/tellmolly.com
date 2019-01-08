@@ -7,13 +7,13 @@
             Create day
         </a>
         <a href="{{ route('days.index') }}" class="list-group-item list-group-item-action {{ active('days.index') }}">
-            Show days
+            List days
         </a>
         <a href="{{ route('categories.create') }}" class="list-group-item list-group-item-action {{ active('categories.create') }}">
             Create category
         </a>
         <a href="{{ route('categories.index') }}" class="list-group-item list-group-item-action {{ active('categories.index') }}">
-            Show categories
+            List categories
         </a>
     </div>
 </div>

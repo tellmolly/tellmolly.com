@@ -17,7 +17,7 @@ class DayController extends Controller
     public function index()
     {
         return view('day.index', [
-            'days' => Day::all()
+            'days' => Day::orderByDesc('date')->paginate()
         ]);
     }
 

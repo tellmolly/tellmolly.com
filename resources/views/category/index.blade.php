@@ -16,15 +16,21 @@
                             </div>
                         @endif
 
-                        <ul>
+                        {{ $categories->links() }}
+
+                        <ul class="list-group">
                             @foreach($categories as $category)
-                                <li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $category->name }}
-                                    <a href="{{ route('categories.show', $category->id) }}">Show</a>
-                                    <a href="{{ route('categories.edit', $category->id) }}">Edit</a>
+                                    <span>
+                                        <a href="{{ route('categories.show', $category->id) }}">Show</a>
+                                        <a href="{{ route('categories.edit', $category->id) }}">Edit</a>
+                                    </span>
                                 </li>
                             @endforeach
                         </ul>
+
+                        {{ $categories->links() }}
                     </div>
                 </div>
             </div>

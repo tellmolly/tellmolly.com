@@ -16,15 +16,21 @@
                             </div>
                         @endif
 
-                        <ul>
+                        {{ $days->links() }}
+
+                        <ul class="list-group">
                             @foreach($days as $day)
-                                <li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
                                     {{ $day->date }}
-                                    <a href="{{ route('days.show', $day->id) }}">Show</a>
-                                    <a href="{{ route('days.edit', $day->id) }}">Edit</a>
+                                    <span>
+                                        <a href="{{ route('days.show', $day->id) }}">Show</a>
+                                        <a href="{{ route('days.edit', $day->id) }}">Edit</a>
+                                    </span>
                                 </li>
                             @endforeach
                         </ul>
+
+                        {{ $days->links() }}
                     </div>
                 </div>
             </div>
