@@ -37,11 +37,11 @@ class DayController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DayEditRequest $request
+     * @param  DayStoreRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(DayEditRequest $request)
+    public function store(DayStoreRequest $request)
     {
         $day = new Day();
         $day->fill($request->validated());
@@ -83,12 +83,12 @@ class DayController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  DayStoreRequest $request
+     * @param  DayEditRequest $request
      * @param  \App\Day        $day
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(DayStoreRequest $request, Day $day)
+    public function update(DayEditRequest $request, Day $day)
     {
         $day->fill($request->validated());
         $day->save();
