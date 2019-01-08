@@ -24,7 +24,7 @@ class DayEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'required|date_format:Y-m-d|unique:days,date,' . $this->date . ',id',
+            'date' => 'required|date_format:Y-m-d|unique:days,date,' . $this->day->id . ',id',
             'comment' => 'nullable',
             'category_id' => 'required|exists:categories,id'
         ];
