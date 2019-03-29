@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Day;
+use App\Tag;
+use Exception;
 use App\Category;
+use Illuminate\Http\Response;
 use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
 
@@ -12,7 +15,7 @@ class DayController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -24,22 +27,23 @@ class DayController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
         return view('day.create', [
             'day' => new Day(['date' => date('Y-m-d')]),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  DayStoreRequest $request
+     * @param DayStoreRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(DayStoreRequest $request)
     {
@@ -48,15 +52,17 @@ class DayController extends Controller
         $day->category_id = $request->category_id;
         $day->save();
 
+        $day->tags()->sync($request->tag_ids);
+
         return redirect()->route('days.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Day $day
+     * @param Day $day
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Day $day)
     {
@@ -68,30 +74,33 @@ class DayController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Day $day
+     * @param Day $day
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Day $day)
     {
         return view('day.edit', [
             'day' => $day,
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  DayEditRequest $request
-     * @param  \App\Day        $day
+     * @param DayEditRequest $request
+     * @param Day            $day
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(DayEditRequest $request, Day $day)
     {
         $day->fill($request->validated());
         $day->save();
+
+        $day->tags()->sync($request->tag_ids);
 
         return redirect()->route('days.index');
     }
@@ -99,10 +108,10 @@ class DayController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Day $day
+     * @param Day $day
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Day $day)
     {

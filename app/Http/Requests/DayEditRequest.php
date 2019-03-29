@@ -26,7 +26,8 @@ class DayEditRequest extends FormRequest
         return [
             'date' => 'required|date_format:Y-m-d|unique:days,date,' . $this->day->id . ',id',
             'comment' => 'nullable',
-            'category_id' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id',
+            'tag_ids.*' => 'nullable|exists:tags,id'
         ];
     }
 }

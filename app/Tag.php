@@ -10,4 +10,14 @@ class Tag extends Model
         'name',
         'color'
     ];
+
+    /**
+     * The days that this tag is set on.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function days()
+    {
+        return $this->belongsToMany(Day::class);
+    }
 }

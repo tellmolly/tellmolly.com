@@ -28,6 +28,13 @@
                             <li>
                                 Category: {{ $day->category->name }}
                             </li>
+                            <li>
+                                Tags: <ul>
+                                    @foreach ($day->tags as $tag)
+                                        <li>{{ $tag->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </li>
                         </ul>
 
                     </div>

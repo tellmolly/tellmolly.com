@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
 use App\Day;
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Support\Renderable;
 
 class YearController extends Controller
 {
@@ -12,7 +13,7 @@ class YearController extends Controller
      * @param Request $request
      * @param null    $year
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index(Request $request, $year = null)
     {

@@ -18,7 +18,8 @@
                     <div class="card-body">
                         @include('day.widgets.create_day', [
                             'day' => new \App\Day(['date' => date('Y-m-d')]),
-                            'categories' => \App\Category::all()
+                            'categories' => \App\Category::all(),
+                            'tags' => \App\Tag::all()
                         ])
                     </div>
                 </div>

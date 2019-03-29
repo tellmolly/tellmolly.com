@@ -34,4 +34,14 @@ class Day extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Get the tags that belong to the day.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

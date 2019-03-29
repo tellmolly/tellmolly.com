@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Category;
+use Illuminate\Http\Response;
 use App\Http\Requests\CategoryEditRequest;
 
 class CategoryController extends Controller
@@ -10,7 +12,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,7 +24,7 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -34,9 +36,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  CategoryEditRequest $request
+     * @param CategoryEditRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store(CategoryEditRequest $request)
     {
@@ -50,9 +52,9 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Category $category
+     * @param \App\Category $category
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Category $category)
     {
@@ -64,9 +66,9 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Category $category
+     * @param \App\Category $category
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Category $category)
     {
@@ -78,10 +80,10 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  CategoryEditRequest $request
-     * @param  \App\Category       $category
+     * @param CategoryEditRequest $request
+     * @param Category            $category
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(CategoryEditRequest $request, Category $category)
     {
@@ -94,10 +96,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Category $category
+     * @param Category $category
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function destroy(Category $category)
     {

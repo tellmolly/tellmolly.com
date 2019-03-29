@@ -24,6 +24,20 @@
 </div>
 
 <div class="form-group">
+    <label for="category_id">Tags</label>
+    <select class="form-control {{ $errors->has('tag_ids') ? ' is-invalid ' : '' }}" id="tag_ids" name="tag_ids[]" multiple>
+        @foreach($tags as $tag)
+            <option {{ in_array($tag->id, old('tag_ids', $day->tags()->pluck("id")->values()->toArray())) ? ' selected ' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
+        @endforeach
+    </select>
+    @if($errors->has('tag_ids'))
+        <div class="invalid-feedback">
+            {{ $errors->first('tag_ids') }}
+        </div>
+    @endif
+</div>
+
+<div class="form-group">
     <label for="comment">Comment</label>
     <textarea class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="comment" name="comment" placeholder="Enter comment">{{ old('comment', $day->comment) }}</textarea>
     @if($errors->has('comment'))

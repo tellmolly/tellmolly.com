@@ -6,20 +6,7 @@
 
 require('./bootstrap');
 
-/*
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {faTimes} from '@fortawesome/free-solid-svg-icons'
-import {faChevronRight} from '@fortawesome/free-solid-svg-icons'
-import {faChevronLeft} from '@fortawesome/free-solid-svg-icons'
-import {faAngleDoubleLeft} from '@fortawesome/free-solid-svg-icons'
-import {faAngleDoubleRight} from '@fortawesome/free-solid-svg-icons'
-
-library.add(faTimes, faChevronLeft, faChevronRight, faAngleDoubleLeft, faAngleDoubleRight)
-*/
-
 if (document.getElementById("calendar")) {
-
-
     $('#calendar').fullCalendar({
         header: {
             left: '',
