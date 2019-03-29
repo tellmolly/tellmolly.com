@@ -23,5 +23,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::resource('categories', 'CategoryController');
+    Route::resource('tags', 'TagController');
     Route::resource('days', 'DayController');
 });

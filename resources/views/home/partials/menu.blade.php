@@ -15,5 +15,11 @@
         <a href="{{ route('categories.index') }}" class="list-group-item list-group-item-action {{ active('categories.index') }}">
             List categories
         </a>
+        <a href="{{ route('tags.create') }}" class="list-group-item list-group-item-action {{ active('tags.create') }}">
+            Create tag
+        </a>
+        <a href="{{ route('tags.index') }}" class="list-group-item list-group-item-action {{ active('tags.index') }}">
+            List tags
+        </a>
     </div>
 </div>
