@@ -25,6 +25,15 @@
                             <li>
                                 Color: {{ $tag->color }}
                             </li>
+                            @if($tag->days->isNotEmpty())
+                            <li>
+                                Days: <ul>
+                                @foreach($tag->days as $day)
+                                    <li><a href="{{ route('days.show', $day->id) }}">{{ $day->date }}</a></li>
+                                @endforeach
+                                </ul>
+                            </li>
+                            @endif
                         </ul>
 
                     </div>
