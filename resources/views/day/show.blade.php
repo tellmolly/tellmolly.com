@@ -28,6 +28,7 @@
                             <li>
                                 Category: {{ $day->category->name }}
                             </li>
+                            @if($day->tags->isNotEmpty())
                             <li>
                                 Tags: <ul>
                                     @foreach ($day->tags as $tag)
@@ -35,6 +36,7 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            @endif
                         </ul>
 
                     </div>
