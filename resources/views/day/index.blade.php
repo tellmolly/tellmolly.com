@@ -16,7 +16,7 @@
                             </div>
                         @endif
 
-                        {{ $days->links() }}
+                        {{ $days->onEachSide(2)->links() }}
 
                         <ul class="list-group">
                             @foreach($days as $day)
@@ -30,7 +30,7 @@
                             @endforeach
                         </ul>
 
-                        {{ $days->links() }}
+                        {{ $days->onEachSide(2)->links() }}
                     </div>
                 </div>
             </div>
