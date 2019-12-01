@@ -20,7 +20,7 @@ class DayController extends Controller
     public function index()
     {
         return view('day.index', [
-            'days' => Day::orderByDesc('date')->paginate()
+            'days' => Day::orderByDesc('date')->paginate(30)
         ]);
     }
 
