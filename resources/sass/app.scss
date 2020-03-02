@@ -11,6 +11,10 @@
 // Fullcalendar
 @import '~fullcalendar/dist/fullcalendar.css';
 
+// Sweet Alert
+@import '~sweetalert2/src/sweetalert2.scss';
+@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
+
 .navbar-laravel {
   background-color: $primary;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

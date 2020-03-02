@@ -1,4 +1,4 @@
-<form action="{{ route('categories.destroy', $category->id) }}" method="post">
+<form action="{{ route('categories.destroy', $category->id) }}" method="post" class="confirm">
     @method('DELETE')
     @csrf
 
