@@ -18,6 +18,10 @@
                             </div>
                         @endif
 
+                        <p>
+                            <a href="{{ route('days.edit', $day->id) }}">Edit</a>
+                        </p>
+
                         <ul>
                             <li>
                                 Date: {{ $day->date }}
