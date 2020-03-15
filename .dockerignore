@@ -1,0 +1,14 @@
+bootstrap/cache/services.php
+
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/logs/*
+
+node_modules
+.docker
+Dockerfile
+Dockerfile.dist
+docker-compose.yml
+docker-compose.dist.yml
+.git/

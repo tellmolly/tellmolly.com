@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/app
+      - .docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+    depends_on:
+      - app
+
+  app:
+    build: .
+    depends_on:
+      - mysql
+    volumes:
+      - ./:/app
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=app
+    volumes:
+      - ./storage/tmp/db:/var/lib/mysql:cached
