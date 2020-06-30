@@ -24,7 +24,7 @@
 
                         <ul>
                             <li>
-                                Date: {{ $day->date }}
+                                Date: {{ date('l, Y-m-d', strtotime($day->date)) }}
                             </li>
                             <li>
                                 Comment: {{ $day->comment }}
