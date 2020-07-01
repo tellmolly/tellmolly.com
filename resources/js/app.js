@@ -6,20 +6,29 @@
 
 require('./bootstrap');
 
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+
 if (document.getElementById("calendar")) {
-    $('#calendar').fullCalendar({
-        header: {
-            left: '',
+    const calendarEl = document.getElementById('calendar');
+
+    const calendar = new Calendar(calendarEl, {
+        headerToolbar: {
+            start: '',
             center: 'title',
-            right: 'prev, today, next'
+            right: 'prev today next'
         },
         navLinks: false, // can click day/week names to navigate views
         editable: false,
-        eventLimit: true, // allow "more" link when too many events
+        dayMaxEventRows: 6, // allow "more" link when too many events
         events: '/api/days',
         themeSystem: 'bootstrap4',
-        firstDay: 1 // monday
+        firstDay: 1, // monday
+        plugins: [bootstrapPlugin, dayGridPlugin]
     });
+
+    calendar.render();
 }
 
 import Swal from 'sweetalert2/src/sweetalert2.js'

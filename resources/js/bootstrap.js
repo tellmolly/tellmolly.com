@@ -11,5 +11,3 @@ try {
     require('bootstrap');
 } catch (e) {
 }
-
-require('fullcalendar');
