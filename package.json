@@ -10,24 +10,24 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "bootstrap": "^4.5.0",
-        "cross-env": "^7.0.0",
+        "bootstrap": "^4.6.0",
+        "cross-env": "^7.0.3",
         "jquery": "^3.5.1",
-        "laravel-mix": "^5.0.4",
+        "laravel-mix": "^5.0.9",
         "popper.js": "^1.16.1",
-        "resolve-url-loader": "^3.1.1",
-        "sass": "^1.26.9",
+        "resolve-url-loader": "^3.1.2",
+        "sass": "^1.32.6",
         "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^2.6.11"
+        "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.13.1",
-        "@fullcalendar/bootstrap": "^5.1.0",
-        "@fullcalendar/core": "^5.1.0",
-        "@fullcalendar/daygrid": "^5.1.0",
+        "@fortawesome/fontawesome-free": "^5.15.2",
+        "@fullcalendar/bootstrap": "^5.5.0",
+        "@fullcalendar/core": "^5.5.1",
+        "@fullcalendar/daygrid": "^5.5.0",
         "@sweetalert2/theme-bootstrap-4": "^3.2.0",
         "invert-color": "^2.0.0",
-        "moment": "^2.27.0",
-        "sweetalert2": "^9.15.2"
+        "moment": "^2.29.1",
+        "sweetalert2": "^9.17.2"
     }
 }
