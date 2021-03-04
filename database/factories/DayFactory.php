@@ -1,13 +1,33 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Day::class, function (Faker $faker) {
-    return [
-        'category_id' => function () {
-            return factory(App\Category::class)->create()->id;
-        },
-        'date' => $faker->date(),
-        'comment' => $faker->optional()->text
-    ];
-});
+use App\Category;
+use App\Day;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class DayFactory extends Factory
+{
+
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Day::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'category_id' => Category::factory(),
+            'date' => $this->faker->date(),
+            'comment' => $this->faker->optional()->text
+        ];
+    }
+}
+

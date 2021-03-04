@@ -2,11 +2,14 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Day extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'date',
         'comment'
@@ -16,7 +19,7 @@ class Day extends Model
      * Returns all days from the given year.
      *
      * @param Builder $query
-     * @param int     $year
+     * @param int $year
      *
      * @return Builder
      */

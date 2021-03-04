@@ -14,8 +14,8 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', 'CalendarController@index');
-Route::get('year/{year?}', 'YearController@index')->name('year.index');
+Route::get('/', [\App\Http\Controllers\CalendarController::class, 'index']);
+Route::get('year/{year?}', [\App\Http\Controllers\YearController::class, 'index'])->name('year.index');
 
 Auth::routes([
     'register' => config('calendar.actions.register'),
@@ -23,9 +23,9 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::resource('categories', 'CategoryController');
-    Route::resource('tags', 'TagController');
-    Route::resource('days', 'DayController');
+    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
+    Route::resource('tags', \App\Http\Controllers\TagController::class);
+    Route::resource('days', \App\Http\Controllers\DayController::class);
 });
