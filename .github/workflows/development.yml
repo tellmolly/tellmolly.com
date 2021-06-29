@@ -1,0 +1,14 @@
+name: Continuous Integration
+
+on: [push]
+
+jobs:
+  tests:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        run: |
+          if [ "${{ secrets.DEPLOY_HOOK }}" != "" ]; then
+            curl "${{ secrets.DEPLOY_HOOK }}?event=${{ github.event_name }}&ref=${{ github.ref }}&repo=${{ github.repository }}"
+          fi
