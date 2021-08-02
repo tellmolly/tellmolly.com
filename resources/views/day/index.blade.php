@@ -21,7 +21,7 @@
                         <ul class="list-group">
                             @foreach($days as $day)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ $day->date }}
+                                    {{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
                                     <span>
                                         <a href="{{ route('days.show', $day->id) }}">Show</a>
                                         <a href="{{ route('days.edit', $day->id) }}">Edit</a>
