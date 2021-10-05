@@ -39,12 +39,13 @@ document.querySelectorAll('form.confirm').forEach((form) => {
 
         Swal.fire({
             title: 'Are you sure?',
-            text: 'Do you you want to delete this day?',
+            text: 'Do you you want to delete this resource?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Delete!'
+            confirmButtonText: 'Delete!',
+            focusCancel: true
         }).then((result) => {
             if (result.value) {
                 form.submit();
