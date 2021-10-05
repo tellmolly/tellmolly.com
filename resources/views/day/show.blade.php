@@ -36,7 +36,7 @@
                             <li>
                                 Tags: <ul>
                                     @foreach ($day->tags as $tag)
-                                        <li>{{ $tag->name }}</li>
+                                        <li><a href="{{ route('tags.show', $tag) }}">{{ $tag->name }}</a></li>
                                     @endforeach
                                 </ul>
                             </li>
