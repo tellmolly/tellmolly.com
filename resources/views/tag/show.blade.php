@@ -29,7 +29,7 @@
                             <li>
                                 Days: <ul>
                                 @foreach($tag->days as $day)
-                                    <li><a href="{{ route('days.show', $day->id) }}">{{ $day->date }}</a></li>
+                                    <li><a href="{{ route('days.show', $day->id) }}">{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}</a></li>
                                 @endforeach
                                 </ul>
                             </li>
