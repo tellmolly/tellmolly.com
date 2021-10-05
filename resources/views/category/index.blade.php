@@ -21,7 +21,9 @@
                         <ul class="list-group">
                             @foreach($categories as $category)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ $category->name }}
+                                    <div>
+                                        {{ $category->name }} <span class="badge badge-secondary">{{ $category->days_count }}</span>
+                                    </div>
                                     <span>
                                         <a href="{{ route('categories.show', $category->id) }}">Show</a>
                                         <a href="{{ route('categories.edit', $category->id) }}">Edit</a>

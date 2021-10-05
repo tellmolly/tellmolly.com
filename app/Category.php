@@ -13,4 +13,14 @@ class Category extends Model
         'name',
         'color'
     ];
+
+    /**
+     * The days that this tag is set on.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function days()
+    {
+        return $this->hasMany(Day::class);
+    }
 }
