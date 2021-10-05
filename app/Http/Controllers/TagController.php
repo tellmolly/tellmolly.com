@@ -17,7 +17,7 @@ class TagController extends Controller
     public function index()
     {
         return view('tag.index', [
-            'tags' => Tag::paginate()
+            'tags' => Tag::withCount('days')->paginate()
         ]);
     }
 

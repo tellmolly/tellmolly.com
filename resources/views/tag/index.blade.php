@@ -21,7 +21,9 @@
                         <ul class="list-group">
                             @foreach($tags as $tag)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    {{ $tag->name }}
+                                    <div>
+                                        {{ $tag->name }} <span class="badge badge-secondary">{{ $tag->days_count }}</span>
+                                    </div>
                                     <span>
                                         <a href="{{ route('tags.show', $tag->id) }}">Show</a>
                                         <a href="{{ route('tags.edit', $tag->id) }}">Edit</a>
