@@ -1,4 +1,4 @@
-<form action="{{ route('tags.destroy', $tag->id) }}" method="post">
+<form action="{{ route('tags.destroy', $tag->id) }}" method="post" class="confirm">
     @method('DELETE')
     @csrf
 
