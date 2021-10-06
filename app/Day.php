@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Day extends Model
 {
@@ -24,35 +26,17 @@ class Day extends Model
         return $query->where('comment', 'LIKE', '%' . $searchTerm . '%');
     }
 
-    /**
-     * Returns all days from the given year.
-     *
-     * @param Builder $query
-     * @param int $year
-     *
-     * @return Builder
-     */
-    public function scopeYear(Builder $query, $year)
+    public function scopeYear(Builder $query, int $year): Builder
     {
         return $query->whereYear('date', '=', $year);
     }
 
-    /**
-     * Get the category that the day belongs to.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    /**
-     * Get the tags that belong to the day.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tags()
+    public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
     }

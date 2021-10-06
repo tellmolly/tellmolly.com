@@ -2,45 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
-use Exception;
-use Illuminate\Http\Response;
 use App\Http\Requests\TagEditRequest;
+use App\Tag;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function index(): View
     {
         return view('tag.index', [
             'tags' => Tag::withCount('days')->paginate()
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function create(): View
     {
         return view('tag.create', [
             'tag' => new Tag()
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param TagEditRequest $request
-     *
-     * @return Response
-     */
-    public function store(TagEditRequest $request)
+    public function store(TagEditRequest $request): RedirectResponse
     {
         $tag = new Tag();
         $tag->fill($request->validated());
@@ -49,43 +32,21 @@ class TagController extends Controller
         return redirect()->route('tags.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Tag $tag
-     *
-     * @return Response
-     */
-    public function show(Tag $tag)
+    public function show(Tag $tag): View
     {
         return view('tag.show', [
             'tag' => $tag
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Tag $tag
-     *
-     * @return Response
-     */
-    public function edit(Tag $tag)
+    public function edit(Tag $tag): View
     {
         return view('tag.edit', [
             'tag' => $tag
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param TagEditRequest $request
-     * @param Tag            $tag
-     *
-     * @return Response
-     */
-    public function update(TagEditRequest $request, Tag $tag)
+    public function update(TagEditRequest $request, Tag $tag): RedirectResponse
     {
         $tag->fill($request->validated());
         $tag->save();
@@ -93,15 +54,7 @@ class TagController extends Controller
         return redirect()->route('tags.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Tag $tag
-     *
-     * @return Response
-     * @throws Exception
-     */
-    public function destroy(Tag $tag)
+    public function destroy(Tag $tag): RedirectResponse
     {
         $tag->delete();
 

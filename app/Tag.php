@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends Model
 {
@@ -11,12 +12,7 @@ class Tag extends Model
         'color'
     ];
 
-    /**
-     * The days that this tag is set on.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function days()
+    public function days(): BelongsToMany
     {
         return $this->belongsToMany(Day::class);
     }

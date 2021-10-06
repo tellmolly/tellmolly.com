@@ -2,20 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Day;
 use App\Category;
+use App\Day;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Contracts\Support\Renderable;
 
 class YearController extends Controller
 {
-    /**
-     * @param Request $request
-     * @param null    $year
-     *
-     * @return Renderable
-     */
-    public function index(Request $request, $year = null)
+    public function index(Request $request, $year = null): View
     {
         if ($year === null) {
             $year = config('calendar.year');
@@ -35,7 +29,7 @@ class YearController extends Controller
         ]);
     }
 
-    private function getMonths()
+    private function getMonths(): array
     {
         $months = [
             0 => ''

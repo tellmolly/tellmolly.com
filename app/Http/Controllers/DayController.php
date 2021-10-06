@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Day;
-use App\Tag;
-use Exception;
 use App\Category;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Day;
 use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
+use App\Tag;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class DayController extends Controller
 {
@@ -21,12 +20,7 @@ class DayController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
+    public function create(): View
     {
         return view('day.create', [
             'day' => new Day(['date' => date('Y-m-d')]),
@@ -35,14 +29,7 @@ class DayController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param DayStoreRequest $request
-     *
-     * @return Response
-     */
-    public function store(DayStoreRequest $request)
+    public function store(DayStoreRequest $request): RedirectResponse
     {
         $day = new Day();
         $day->fill($request->validated());
@@ -54,28 +41,14 @@ class DayController extends Controller
         return redirect()->route('days.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param Day $day
-     *
-     * @return Response
-     */
-    public function show(Day $day)
+    public function show(Day $day): View
     {
         return view('day.show', [
             'day' => $day
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Day $day
-     *
-     * @return Response
-     */
-    public function edit(Day $day)
+    public function edit(Day $day): View
     {
         return view('day.edit', [
             'day' => $day,
@@ -84,15 +57,7 @@ class DayController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param DayEditRequest $request
-     * @param Day $day
-     *
-     * @return Response
-     */
-    public function update(DayEditRequest $request, Day $day)
+    public function update(DayEditRequest $request, Day $day): RedirectResponse
     {
         $day->fill($request->validated());
         $day->save();
@@ -102,15 +67,7 @@ class DayController extends Controller
         return redirect()->route('days.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Day $day
-     *
-     * @return Response
-     * @throws Exception
-     */
-    public function destroy(Day $day)
+    public function destroy(Day $day): RedirectResponse
     {
         $day->delete();
 

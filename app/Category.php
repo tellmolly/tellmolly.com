@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -14,12 +15,7 @@ class Category extends Model
         'color'
     ];
 
-    /**
-     * The days that this tag is set on.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function days()
+    public function days(): HasMany
     {
         return $this->hasMany(Day::class);
     }
