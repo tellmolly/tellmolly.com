@@ -15,6 +15,15 @@ class Day extends Model
         'comment'
     ];
 
+    public function scopeSearch(Builder $query, ?string $searchTerm): Builder
+    {
+        if ( ! $searchTerm) {
+            return $query;
+        }
+
+        return $query->where('comment', 'LIKE', '%' . $searchTerm . '%');
+    }
+
     /**
      * Returns all days from the given year.
      *

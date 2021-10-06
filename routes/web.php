@@ -28,4 +28,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
     Route::resource('days', \App\Http\Controllers\DayController::class);
+
+    Route::post('search', [\App\Http\Controllers\DayController::class, 'index'])->name('search');
 });

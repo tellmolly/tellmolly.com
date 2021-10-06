@@ -6,21 +6,18 @@ use App\Day;
 use App\Tag;
 use Exception;
 use App\Category;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
 
 class DayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index()
+    public function index(Request $request): View
     {
         return view('day.index', [
-            'days' => Day::orderByDesc('date')->paginate(30)
+            'days' => Day::search($request->post('search'))->orderByDesc('date')->paginate(30)
         ]);
     }
 
@@ -91,7 +88,7 @@ class DayController extends Controller
      * Update the specified resource in storage.
      *
      * @param DayEditRequest $request
-     * @param Day            $day
+     * @param Day $day
      *
      * @return Response
      */
