@@ -9,10 +9,9 @@
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
                         Days
-                        <form action="{{ route('search') }}" method="post" class="d-inline">
-                            @csrf
+                        <form action="{{ route('days.index') }}" method="get" class="d-inline">
                             <label for="search" class="sr-only">Search</label>
-                            <input type="search" id="search" name="search" class="form-control  form-control-sm" placeholder="Search">
+                            <input type="search" id="search" name="search" class="form-control  form-control-sm" placeholder="Search" value="{{ request()->get('search') }}">
                         </form>
                     </div>
 

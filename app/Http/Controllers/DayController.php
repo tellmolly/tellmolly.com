@@ -16,7 +16,7 @@ class DayController extends Controller
     public function index(Request $request): View
     {
         return view('day.index', [
-            'days' => Day::search($request->post('search'))->orderByDesc('date')->paginate(30)
+            'days' => Day::search($request->post('search'))->orderByDesc('date')->paginate(30)->withQueryString()
         ]);
     }
 
