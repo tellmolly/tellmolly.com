@@ -2,28 +2,23 @@
 
 namespace Database\Factories;
 
-use App\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
+ */
 class CategoryFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Category::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
-            'color' => $this->faker->hexColor
+            'name' => fake()->name(),
+            'color' => fake()->hexColor()
         ];
     }
 }

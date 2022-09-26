@@ -1,6 +1,6 @@
 <?php
 
-use App\Day;
+use App\Models\Day;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +26,7 @@ Route::get('/days', function (Request $request) {
             'backgroundColor' => $day->category->color,
             'textColor' => $day->category->font_color,
             'start' => $day->date,
-            'rendering' => 'background'
+            'display' => 'background'
         ];
     });
 });

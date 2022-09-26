@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDaysTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,8 @@ class CreateDaysTable extends Migration
     public function up()
     {
         Schema::create('days', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('category_id');
+            $table->id();
+            $table->foreignId('category_id');
             $table->date('date')->unique();
             $table->text('comment')->nullable()->default(null);
             $table->timestamps();
@@ -37,4 +37,4 @@ class CreateDaysTable extends Migration
     {
         Schema::dropIfExists('days');
     }
-}
+};

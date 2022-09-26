@@ -12,14 +12,14 @@
                     </div>
                 @endif
 
-                <div class="card mb-3">
+                <div class="card">
                     <div class="card-header">Quick create day</div>
 
                     <div class="card-body">
                         @include('day.widgets.create_day', [
-                            'day' => new \App\Day(['date' => date('Y-m-d')]),
-                            'categories' => \App\Category::all(),
-                            'tags' => \App\Tag::all()
+                            'day' => new \App\Models\Day(['date' => date('Y-m-d')]),
+                            'categories' => \App\Models\Category::all(),
+                            'tags' => \App\Models\Tag::all()
                         ])
                     </div>
                 </div>

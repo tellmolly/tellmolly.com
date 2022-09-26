@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="mb-3">
     <label for="name">Name</label>
     <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid ' : '' }}" id="name" name="name" placeholder="Enter tag name" value="{{ old('name', $tag->name) }}" required>
     @if($errors->has('name'))
@@ -8,7 +8,7 @@
     @endif
 </div>
 
-<div class="form-group">
+<div class="mb-3">
     <label for="color">Color</label>
     <input type="color" class="form-control {{ $errors->has('color') ? ' is-invalid ' : '' }}" id="color" name="color" placeholder="Enter tag background color" value="{{ old('color', $tag->color) }}" required>
     @if($errors->has('color'))

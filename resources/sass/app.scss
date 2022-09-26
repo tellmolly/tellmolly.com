@@ -1,43 +1,41 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.bunny.net/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap';
 
 // Sweet Alert
-@import '~sweetalert2/src/sweetalert2.scss';
-@import '~@sweetalert2/theme-bootstrap-4/bootstrap-4.scss';
+@import 'sweetalert2/src/sweetalert2.scss';
 
 .navbar-laravel {
-  background-color: $primary;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: $primary;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.year_overview {
-  text-align: center;
-  table-layout: fixed;
-  vertical-align: middle;
+.year_overview_1 {
+    text-align: center;
+    table-layout: fixed;
+    vertical-align: middle;
 
-  &__item {
-    width: 33.33%;
-    position: relative;
+    &__item {
+        width: 33.33%;
+        position: relative;
 
-    &__content {
-      position: absolute;
-      top: 15px;
-      bottom: 0;
-      left: 0;
-      right: 0;
+        &__content {
+            position: absolute;
+            top: 15px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
     }
-  }
 
-  &__item:after {
-    content: '';
-    display: block;
-    margin-top: 100%;
-  }
+    &__item:after {
+        content: '';
+        display: block;
+        margin-top: 100%;
+    }
 }

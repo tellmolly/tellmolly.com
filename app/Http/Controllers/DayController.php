@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Day;
 use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
-use App\Tag;
+use App\Models\Category;
+use App\Models\Day;
+use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

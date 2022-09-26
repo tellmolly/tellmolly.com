@@ -2,32 +2,25 @@
 
 namespace Database\Factories;
 
-use App\Category;
-use App\Day;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Day>
+ */
 class DayFactory extends Factory
 {
-
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Day::class;
-
     /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function definition()
     {
         return [
             'category_id' => Category::factory(),
-            'date' => $this->faker->date(),
-            'comment' => $this->faker->optional()->text
+            'date' => fake()->date(),
+            'comment' => fake()->optional()->text()
         ];
     }
 }
-

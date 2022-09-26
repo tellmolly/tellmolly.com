@@ -1,14 +1,10 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+import './bootstrap';
 
-require('./bootstrap');
-
+import '@fullcalendar/core/vdom' // solves problem with Vite
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import bootstrapPlugin from '@fullcalendar/bootstrap';
+import bootstrapPlugin from '@fullcalendar/bootstrap5';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // needs additional webpack config!
 
 if (document.getElementById("calendar")) {
     const calendarEl = document.getElementById('calendar');
@@ -23,7 +19,7 @@ if (document.getElementById("calendar")) {
         editable: false,
         dayMaxEventRows: 6, // allow "more" link when too many events
         events: '/api/days',
-        themeSystem: 'bootstrap4',
+        themeSystem: 'bootstrap5',
         firstDay: 1, // monday
         plugins: [bootstrapPlugin, dayGridPlugin]
     });
@@ -31,7 +27,7 @@ if (document.getElementById("calendar")) {
     calendar.render();
 }
 
-import Swal from 'sweetalert2/src/sweetalert2.js'
+import Swal from 'sweetalert2/src/sweetalert2'
 
 document.querySelectorAll('form.confirm').forEach((form) => {
     form.addEventListener('submit', function (event) {
@@ -53,4 +49,3 @@ document.querySelectorAll('form.confirm').forEach((form) => {
         })
     })
 });
-

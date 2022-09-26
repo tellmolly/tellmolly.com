@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TagEditRequest;
-use App\Tag;
+use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 
