@@ -64,10 +64,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return tap(User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]), function(User $user) {
+            $categories = [
+                ['name' => 'Good', 'color' => '#27ae60'],
+                ['name' => 'Normal', 'color' => '#f1c40f'],
+                ['name' => 'Bad', 'color' => '#c0392b'],
+            ];
+            foreach ($categories as $category) {
+                $user->categories()->create($category);
+            }
+
+            $tags = [
+                ['name' => 'Concert', 'color' => '#007a37'],
+                ['name' => 'Gym', 'color' => '#ff0000'],
+                ['name' => 'Cycling', 'color' => '#2465bf'],
+            ];
+            foreach ($tags as $tag) {
+                $user->tags()->create($tag);
+            }
+        });
     }
 }
