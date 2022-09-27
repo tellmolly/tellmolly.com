@@ -15,16 +15,18 @@ return new class extends Migration
     {
         Schema::create('days', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
-            $table->date('date')->unique();
-            $table->text('comment')->nullable()->default(null);
-            $table->timestamps();
-
-            $table->foreign('category_id')
-                ->references('id')
+            $table->foreignId('category_id')->references('id')
                 ->on('categories')
                 ->onDelete('restrict')
                 ->onUpdate('cascade');
+            $table->date('date');
+            $table->text('comment')->nullable()->default(null);
+            $table->foreignId('user_id')->references('id')->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->timestamps();
+
+            $table->unique(['date', 'user_id']);
         });
     }
 
