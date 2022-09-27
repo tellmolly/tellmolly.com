@@ -16,11 +16,7 @@
                     <div class="card-header">Quick create day</div>
 
                     <div class="card-body">
-                        @include('day.widgets.create_day', [
-                            'day' => new \App\Models\Day(['date' => date('Y-m-d')]),
-                            'categories' => \App\Models\Category::all(),
-                            'tags' => \App\Models\Tag::all()
-                        ])
+                        @include('day.widgets.create_day')
                     </div>
                 </div>
             </div>

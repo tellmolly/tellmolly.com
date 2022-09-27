@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\CalendarController::class, 'index']);
+Route::get('/', [\App\Http\Controllers\CalendarController::class, 'show']);
 Route::get('year/{year?}', [\App\Http\Controllers\YearController::class, 'index'])->name('year.index');
 
 Auth::routes([
@@ -28,4 +28,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
     Route::resource('days', \App\Http\Controllers\DayController::class);
+
+    Route::get('/calendar', [\App\Http\Controllers\CalendarController::class, 'index']);
 });

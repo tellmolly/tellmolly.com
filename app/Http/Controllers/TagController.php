@@ -6,13 +6,19 @@ use App\Http\Requests\TagEditRequest;
 use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function index(): View
+    public function __construct()
+    {
+        $this->authorizeResource(Tag::class, 'tag');
+    }
+
+    public function index(Request $request): View
     {
         return view('tag.index', [
-            'tags' => Tag::withCount('days')->paginate()
+            'tags' => $request->user()->tags()->withCount('days')->paginate()
         ]);
     }
 
@@ -27,7 +33,8 @@ class TagController extends Controller
     {
         $tag = new Tag();
         $tag->fill($request->validated());
-        $tag->save();
+
+        $request->user()->tags()->save($tag);
 
         return redirect()->route('tags.index');
     }

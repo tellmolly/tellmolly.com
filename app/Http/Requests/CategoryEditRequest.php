@@ -14,8 +14,8 @@ class CategoryEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'color' => 'required'
+            'name' => ['required'],
+            'color' => ['required']
         ];
     }
 }

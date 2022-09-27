@@ -18,7 +18,7 @@ if (document.getElementById("calendar")) {
         navLinks: false, // can click day/week names to navigate views
         editable: false,
         dayMaxEventRows: 6, // allow "more" link when too many events
-        events: '/api/days',
+        events: '/calendar',
         themeSystem: 'bootstrap5',
         firstDay: 1, // monday
         plugins: [bootstrapPlugin, dayGridPlugin]

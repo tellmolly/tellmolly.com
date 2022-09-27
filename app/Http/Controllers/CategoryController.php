@@ -6,13 +6,19 @@ use App\Http\Requests\CategoryEditRequest;
 use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(): View
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class, 'category');
+    }
+
+    public function index(Request $request): View
     {
         return view('category.index', [
-            'categories' => Category::withCount('days')->paginate()
+            'categories' => $request->user()->categories()->withCount('days')->paginate()
         ]);
     }
 
@@ -27,7 +33,8 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $category->fill($request->validated());
-        $category->save();
+
+        $request->user()->categories()->save($category);
 
         return redirect()->route('categories.index');
     }

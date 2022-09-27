@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Day;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class YearController extends Controller
 {
-    public function index(Request $request, $year = null): View
+    public function index(Request $request, $year = null): View|RedirectResponse
     {
+        if ( ! $request->user()) {
+            return redirect()->route('login');
+        }
+
         if ($year === null) {
             $year = config('calendar.year');
         }
@@ -19,13 +22,13 @@ class YearController extends Controller
             abort(404);
         }
 
-        $days = Day::with('category')->year($year)->get();
+        $days = $request->user()->days()->with('category')->year($year)->get();
 
         return view('year.index', [
             'days' => $days,
             'year' => $year,
             'months' => $this->getMonths(),
-            'categories' => Category::all()
+            'categories' => $request->user()->categories
         ]);
     }
 

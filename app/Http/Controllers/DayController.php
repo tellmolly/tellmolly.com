@@ -13,19 +13,24 @@ use Illuminate\Http\Request;
 
 class DayController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Day::class, 'day');
+    }
+
     public function index(Request $request): View
     {
         return view('day.index', [
-            'days' => Day::search($request->get('search'))->orderByDesc('date')->paginate(30)->withQueryString()
+            'days' => $request->user()->days()->search($request->get('search'))->orderByDesc('date')->paginate(30)->withQueryString()
         ]);
     }
 
-    public function create(): View
+    public function create(Request $request): View
     {
         return view('day.create', [
             'day' => new Day(['date' => date('Y-m-d')]),
-            'categories' => Category::all(),
-            'tags' => Tag::all()
+            'categories' => $request->user()->categories,
+            'tags' => $request->user()->tags
         ]);
     }
 
@@ -34,7 +39,8 @@ class DayController extends Controller
         $day = new Day();
         $day->fill($request->validated());
         $day->category_id = $request->category_id;
-        $day->save();
+
+        $request->user()->days()->save($day);
 
         $day->tags()->sync($request->tag_ids);
 
@@ -48,12 +54,12 @@ class DayController extends Controller
         ]);
     }
 
-    public function edit(Day $day): View
+    public function edit(Request $request, Day $day): View
     {
         return view('day.edit', [
             'day' => $day,
-            'categories' => Category::all(),
-            'tags' => Tag::all()
+            'categories' => $request->user()->categories,
+            'tags' => $request->user()->tags
         ]);
     }
 
