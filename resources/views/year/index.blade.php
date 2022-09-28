@@ -74,7 +74,7 @@
                         <ul>
                             @foreach($categories as $category)
                                 <li>
-                                    <span style="display: inline-block; width: 20px; height: 20px; background-color: {{ $category->color }};">&nbsp;</span> {{ $category->name }}
+                                    <span style="display: inline-block; width: 20px; height: 20px; background-color: {{ $category->color }};">&nbsp;</span> {!!  $category->name !!}
                                 </li>
                             @endforeach
                         </ul>

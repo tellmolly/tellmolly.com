@@ -30,7 +30,7 @@
                                 Comment: {{ $day->comment }}
                             </li>
                             <li>
-                                Category: {{ $day->category->name }}
+                                Category: {!! $day->category->name  !!}
                             </li>
                             @if($day->tags->isNotEmpty())
                             <li>
