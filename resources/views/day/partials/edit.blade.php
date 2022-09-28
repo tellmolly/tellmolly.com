@@ -9,13 +9,18 @@
 </div>
 
 <div class="mb-3">
-    <label for="category_id">Category</label>
-    <select class="form-control {{ $errors->has('category_id') ? ' is-invalid ' : '' }}" id="category_id" name="category_id" required>
-        <option value="">Choose category</option>
-        @foreach($categories as $category)
-            <option {{ old('category_id', $day->category_id) == $category->id ? ' selected ' : '' }} value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
-    </select>
+    <div class="row">
+    @foreach($categories as $category)
+            <div class="col d-flex">
+            <input type="radio" class="btn-check" autocomplete="off" name="category_id" id="category_{{ $loop->index }}"
+                   {{ old('category_id', $day->category_id) == $category->id ? ' checked ' : '' }} value="{{ $category->id }}">
+                <label for="category_{{ $loop->index }}" style="font-size: xxx-large; flex:1; border-radius: .5rem;" class=" {{ $errors->has('category_id') ? ' is-invalid ' : '' }}
+         p-2  text-center btn btn-outline-primary
+        ">{!! $category->name  !!}</label>
+            </div>
+    @endforeach
+    </div>
+
     @if($errors->has('category_id'))
         <div class="invalid-feedback">
             {{ $errors->first('category_id') }}
