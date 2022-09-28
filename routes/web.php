@@ -23,9 +23,6 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-    Route::resource('categories', \App\Http\Controllers\CategoryController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
     Route::resource('days', \App\Http\Controllers\DayController::class);
 });
