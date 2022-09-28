@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -28,7 +29,7 @@ class YearController extends Controller
             'days' => $days,
             'year' => $year,
             'months' => $this->getMonths(),
-            'categories' => $request->user()->categories
+            'categories' => Category::all()
         ]);
     }
 

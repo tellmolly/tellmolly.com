@@ -23,9 +23,9 @@ class DayEditRequest extends FormRequest
                     ->ignore($this->day->id)
             ],
             'comment' => ['nullable'],
-            'category_id' => ['required',
+            'category_id' => [
+                'required',
                 Rule::exists(Category::class, 'id')
-                    ->where(fn($query) => $query->where('user_id', $this->user()->id))
             ],
             'tag_ids' => ['nullable'],
             'tag_ids.*' => Rule::forEach(function ($value, $attribute) {

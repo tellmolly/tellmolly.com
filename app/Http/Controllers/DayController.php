@@ -29,7 +29,7 @@ class DayController extends Controller
     {
         return view('day.create', [
             'day' => new Day(['date' => date('Y-m-d')]),
-            'categories' => $request->user()->categories,
+            'categories' => Category::all(),
             'tags' => $request->user()->tags
         ]);
     }
@@ -38,7 +38,6 @@ class DayController extends Controller
     {
         $day = new Day();
         $day->fill($request->validated());
-        $day->category_id = $request->category_id;
 
         $request->user()->days()->save($day);
 
@@ -58,7 +57,7 @@ class DayController extends Controller
     {
         return view('day.edit', [
             'day' => $day,
-            'categories' => $request->user()->categories,
+            'categories' => Category::all(),
             'tags' => $request->user()->tags
         ]);
     }

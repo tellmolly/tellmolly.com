@@ -14,7 +14,8 @@ class Day extends Model
 
     protected $fillable = [
         'date',
-        'comment'
+        'comment',
+        'category_id'
     ];
 
     public function scopeSearch(Builder $query, ?string $searchTerm): Builder
