@@ -1,5 +1,5 @@
 <div class="mb-3">
-    <label for="date">Date</label>
+    <label for="date" class="form-label">Date</label>
     <input type="date" class="form-control {{ $errors->has('date') ? ' is-invalid ' : '' }}" id="date" name="date" placeholder="Enter date" value="{{ old('date', $day->date) }}" required>
     @if($errors->has('date'))
         <div class="invalid-feedback">
@@ -29,12 +29,15 @@
 </div>
 
 <div class="mb-3">
-    <label for="tag_ids">Tags</label>
-    <select class="form-control {{ $errors->has('tag_ids') ? ' is-invalid ' : '' }}" id="tag_ids" name="tag_ids[]" multiple>
+    <label for="tag_ids" class="form-label">Tags</label>
+    <ul class="list-group" id="tag_ids" >
         @foreach($tags as $tag)
-            <option {{ in_array($tag->id, old('tag_ids', $day->tags()->pluck("id")->values()->toArray())) ? ' selected ' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
+        <li class="list-group-item {{ $errors->has('tag_ids') ? ' is-invalid ' : '' }}">
+            <input class="form-check-input me-1" name="tag_ids[]" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ in_array($tag->id, old('tag_ids', $day->tags()->pluck("id")->values()->toArray())) ? ' checked ' : '' }}>
+            <label class="form-check-label stretched-link" for="tag-{{ $tag->id }}">{{ $tag->name }}</label>
+        </li>
         @endforeach
-    </select>
+    </ul>
     @if($errors->has('tag_ids'))
         <div class="invalid-feedback">
             {{ $errors->first('tag_ids') }}
@@ -43,7 +46,7 @@
 </div>
 
 <div class="mb-3">
-    <label for="comment">Comment</label>
+    <label for="comment" class="form-label">Comment</label>
     <textarea class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="comment" name="comment" placeholder="Enter comment">{{ old('comment', $day->comment) }}</textarea>
     @if($errors->has('comment'))
         <div class="invalid-feedback">
