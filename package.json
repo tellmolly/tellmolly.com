@@ -20,6 +20,7 @@
         "@fullcalendar/core": "^5.5.1",
         "@fullcalendar/daygrid": "^5.5.0",
         "@sweetalert2/theme-bootstrap-4": "^3.2.0",
+        "autosize": "^5.0.1",
         "invert-color": "^2.0.0",
         "moment": "^2.29.2",
         "sweetalert2": "^11.4.33"

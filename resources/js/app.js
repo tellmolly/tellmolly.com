@@ -49,3 +49,6 @@ document.querySelectorAll('form.confirm').forEach((form) => {
         })
     })
 });
+import autosize from "autosize/dist/autosize";
+
+autosize(document.querySelector('#comment'));
