@@ -27,11 +27,11 @@ class DayController extends Controller
             'currentStreak' => DB::select(DB::raw("SELECT MAX(CAST(streak AS SIGNED)) AS streak
                     FROM (
                     SELECT id, user_id, `date`, DATEDIFF(DATE(NOW()), `date`),
-                     @streak := IF(DATEDIFF(DATE(NOW()), `date`) - @days_diff > 2, @streak,
+                     @streak := IF(DATEDIFF(DATE(NOW()), `date`) - @days_diff > 1, @streak,
                      IF(@days_diff := DATEDIFF(DATE(NOW()), `date`), @streak+1, @streak+1)) AS streak
                     FROM days CROSS
                     JOIN (
-                    SELECT @streak := 0, @days_diff := -1) AS vars
+                    SELECT @streak := 0, @days_diff := 0) AS vars
                     WHERE user_id = :user_id AND `date` <= DATE(NOW())
                     ORDER BY `date` DESC) AS t"), [
                             'user_id' => auth()->user()->id
@@ -52,8 +52,6 @@ class DayController extends Controller
         'user_id' => auth()->user()->id
             ])
         ]);
-
-
     }
 
     public function create(Request $request): View
