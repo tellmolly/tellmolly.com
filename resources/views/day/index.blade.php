@@ -11,16 +11,16 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Longest Streak</h5>
-                                <p class="card-text"> {{ $longestStreak[0]->max_streak }}</p>
+                                <h5 class="card-title">{{ $longestStreak[0]->max_streak }}</h5>
+                                <p class="card-text">Longest Streak</p>
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Current Streak</h5>
-                                <p class="card-text">{{ $currentStreak[0]->streak }}</p>
+                                <h5 class="card-title">{{ $currentStreak[0]->streak }}</h5>
+                                <p class="card-text">Current Streak</p>
                             </div>
                         </div>
                     </div>
