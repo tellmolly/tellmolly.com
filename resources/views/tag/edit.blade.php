@@ -21,6 +21,21 @@
                         @include('tag.widgets.delete_tag')
                     </div>
                 </div>
+
+                @if($tag->days->isNotEmpty())
+                    <div class="card mt-3">
+                        <div class="card-header">Days</div>
+                        <div class="card-body">
+                            Days: <ul>
+                                @foreach($tag->days as $day)
+                                    <li><a href="{{ route('days.edit', $day->id) }}"
+                                        >{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}</a> {!! $day->category->name !!}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>

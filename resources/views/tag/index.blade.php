@@ -18,19 +18,13 @@
 
                         {{ $tags->links() }}
 
-                        <ul class="list-group">
+                        <div class="list-group">
                             @foreach($tags as $tag)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div>
-                                        {{ $tag->name }} <span class="badge bg-secondary">{{ $tag->days_count }}</span>
-                                    </div>
-                                    <span>
-                                        <a href="{{ route('tags.show', $tag->id) }}">Show</a>
-                                        <a href="{{ route('tags.edit', $tag->id) }}">Edit</a>
-                                    </span>
-                                </li>
+                                <a href="{{ route('tags.edit', $tag->id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                   {{ $tag->name }} <span class="badge bg-secondary">{{ $tag->days_count }}</span>
+                                </a>
                             @endforeach
-                        </ul>
+                        </div>
 
                         {{ $tags->links() }}
                     </div>

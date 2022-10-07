@@ -44,17 +44,16 @@
 
                         {{ $days->onEachSide(2)->links() }}
 
-                        <ul class="list-group">
+                        <div class="list-group">
                             @foreach($days as $day)
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a href="{{ route('days.edit', $day->id) }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                                     {{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
-                                    <span>
-                                        <a href="{{ route('days.show', $day->id) }}">Show</a>
-                                        <a href="{{ route('days.edit', $day->id) }}">Edit</a>
-                                    </span>
-                                </li>
+                                   <span>
+{!! $day->category->name !!}
+                                   </span>
+                                </a>
                             @endforeach
-                        </ul>
+                        </div>
 
                         {{ $days->onEachSide(2)->links() }}
                     </div>

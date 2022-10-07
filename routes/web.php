@@ -23,6 +23,6 @@ Auth::routes([
 ]);
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('tags', \App\Http\Controllers\TagController::class);
-    Route::resource('days', \App\Http\Controllers\DayController::class);
+    Route::resource('tags', \App\Http\Controllers\TagController::class)->except(['show']);
+    Route::resource('days', \App\Http\Controllers\DayController::class)->except(['show']);
 });

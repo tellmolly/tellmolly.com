@@ -39,17 +39,10 @@ class TagController extends Controller
         return redirect()->route('tags.index');
     }
 
-    public function show(Tag $tag): View
-    {
-        return view('tag.show', [
-            'tag' => $tag
-        ]);
-    }
-
     public function edit(Tag $tag): View
     {
         return view('tag.edit', [
-            'tag' => $tag
+            'tag' => $tag->load('days', 'days.category')
         ]);
     }
 

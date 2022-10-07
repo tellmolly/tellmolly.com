@@ -22,7 +22,8 @@ class DayController extends Controller
     public function index(Request $request): View
     {
         return view('day.index', [
-            'days' => $request->user()->days()->search($request->get('search'))->orderByDesc('date')->paginate(30)->withQueryString(),
+            'isSearch' => $request->get('search') !== null,
+            'days' => $request->user()->days()->with('category')->search($request->get('search'))->orderByDesc('date')->paginate(30)->withQueryString(),
             'currentStreak' => DB::select(DB::raw("SELECT MAX(CAST(streak AS SIGNED)) AS streak
                     FROM (
                     SELECT id, user_id, `date`, DATEDIFF(DATE(NOW()), `date`),
@@ -74,13 +75,6 @@ class DayController extends Controller
         $day->tags()->sync($request->tag_ids);
 
         return redirect()->route('days.index');
-    }
-
-    public function show(Day $day): View
-    {
-        return view('day.show', [
-            'day' => $day
-        ]);
     }
 
     public function edit(Request $request, Day $day): View
