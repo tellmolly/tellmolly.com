@@ -24,15 +24,13 @@
 
                 @if($tag->days->isNotEmpty())
                     <div class="card mt-3">
-                        <div class="card-header">Days</div>
-                        <div class="card-body">
-                            Days: <ul>
-                                @foreach($tag->days as $day)
-                                    <li><a href="{{ route('days.edit', $day->id) }}"
-                                        >{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}</a> {!! $day->category->name !!}
-                                    </li>
-                                @endforeach
-                            </ul>
+                        <div class="card-header">Days ({{ $tag->days->count() }})</div>
+                        <div class="list-group list-group-flush">
+                            @foreach($tag->days as $day)
+                                <a href="{{ route('days.edit', $day->id) }}" class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center"
+                                    >{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }} <span>{!! $day->category->name !!}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 @endif

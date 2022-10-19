@@ -6,7 +6,6 @@ use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
 use App\Models\Category;
 use App\Models\Day;
-use App\Models\Tag;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -34,8 +33,8 @@ class DayController extends Controller
                     SELECT @streak := 0, @days_diff := 0) AS vars
                     WHERE user_id = :user_id AND `date` <= DATE(NOW())
                     ORDER BY `date` DESC) AS t"), [
-                            'user_id' => auth()->user()->id
-                        ]),
+                'user_id' => auth()->user()->id
+            ]),
             'longestStreak' => DB::select(DB::raw("SELECT COUNT(*) max_streak
   FROM
      ( SELECT x.*
@@ -49,7 +48,7 @@ class DayController extends Controller
      ) a
  GROUP BY i
  ORDER BY max_streak DESC LIMIT 1"), [
-        'user_id' => auth()->user()->id
+                'user_id' => auth()->user()->id
             ])
         ]);
     }
@@ -99,5 +98,22 @@ class DayController extends Controller
         $day->delete();
 
         return redirect()->route('days.index');
+    }
+
+    public function jump(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'jump' => ['required', 'date']
+        ]);
+
+        $day = $request->user()->days()->where('date', '=', $validated['jump'])->first();
+
+        if ( ! $day) {
+            return redirect()->route('days.index')->with([
+                'message' => 'No entry on this day'
+            ]);
+        }
+
+        return redirect()->route('days.edit', $day);
     }
 }

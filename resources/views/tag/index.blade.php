@@ -7,7 +7,7 @@
 
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Tags</div>
+                    <div class="card-header">Tags ({{ $tags->total() }})</div>
 
                     <div class="card-body">
                         @if (session('status'))
