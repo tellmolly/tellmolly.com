@@ -7,7 +7,13 @@
 
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Edit Day</div>
+                    <div class="card-header d-flex align-items-center justify-content-between">
+                        <span>Edit Day</span>
+                        <span>
+                            <a class="link-light" href="{{ route('days.previous', $day) }}">Previous</a>
+                            <a class="link-light" href="{{ route('days.next', $day) }}">Next</a>
+                        </span>
+                    </div>
 
                     <div class="card-body">
                         @if (session('status'))

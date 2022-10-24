@@ -116,4 +116,36 @@ class DayController extends Controller
 
         return redirect()->route('days.edit', $day);
     }
+
+    public function previous(Request $request, Day $day): RedirectResponse
+    {
+        $previous = $request->user()->days()
+            ->where('date', '<', $day->date)
+            ->orderByDesc('date')
+            ->first();
+
+        if ( ! $previous) {
+            return redirect()->route('days.edit', $day)->with([
+                'message' => 'No earlier entry available'
+            ]);
+        }
+
+        return redirect()->route('days.edit', $previous);
+    }
+
+    public function next(Request $request, Day $day): RedirectResponse
+    {
+        $next = $request->user()->days()
+            ->where('date', '>', $day->date)
+            ->orderBy('date', 'asc')
+            ->first();
+
+        if ( ! $next) {
+            return redirect()->route('days.edit', $day)->with([
+                'message' => 'No later entry available'
+            ]);
+        }
+
+        return redirect()->route('days.edit', $next);
+    }
 }
