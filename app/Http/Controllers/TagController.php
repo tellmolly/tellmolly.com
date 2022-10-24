@@ -42,7 +42,7 @@ class TagController extends Controller
     public function edit(Tag $tag): View
     {
         return view('tag.edit', [
-            'tag' => $tag->load('days', 'days.category')
+            'tag' => $tag->load('days', 'days.category', 'days.tags')
         ]);
     }
 
