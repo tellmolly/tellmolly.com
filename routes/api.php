@@ -18,17 +18,29 @@ Route::get('days', function (Request $request) {
         return [];
     }
 
-    $days = $request->user()->days()->with('category')->whereBetween('date', [
+    $days = $request->user()->days()->with('category', 'tags')->whereBetween('date', [
         $request->start,
         $request->end
     ])->get();
 
-    return $days->map(function ($day) {
-        return [
-            'backgroundColor' => $day->category->color,
-            'textColor' => $day->category->font_color,
-            'start' => $day->date,
-            'display' => 'background'
+    return $days->flatMap(function ($day) {
+        $events = [
+            [
+                'backgroundColor' => $day->category->color,
+                'textColor' => $day->category->font_color,
+                'start' => $day->date,
+                'display' => 'background'
+            ]
         ];
+        foreach ($day->tags as $tag) {
+            $events[] = [
+                'backgroundColor' => $tag->color,
+                'borderColor' => $tag->color,
+                'title' => $tag->name,
+                'start' => $day->date,
+            ];
+        }
+
+        return $events;
     });
 });
