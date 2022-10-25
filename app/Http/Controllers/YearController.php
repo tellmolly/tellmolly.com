@@ -29,7 +29,7 @@ class YearController extends Controller
             'days' => $days,
             'year' => $year,
             'months' => $this->getMonths(),
-            'categories' => Category::all()
+            'categories' => Category::orderBy('order')->get()
         ]);
     }
 
