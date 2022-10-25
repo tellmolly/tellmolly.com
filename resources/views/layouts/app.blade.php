@@ -16,9 +16,16 @@
     <div id="app">
         <nav class="navbar navbar-expand-md bg-light navbar-laravel p-3 mb-3 border-bottom">
             <div class="container">
-                <a class="navbar-brand text-logo" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+                @auth
+                    <a class="navbar-brand text-logo" href="{{ route('days.create') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @else
+                    <a class="navbar-brand text-logo" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+                @endauth
+
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
