@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => DateTime::createFromFormat('Y-m-d', $day->date)->format('Y-m-d, l') . ' - Days',
+    'description' => 'Edit your memories to add new stories or to fix typos.'
+])
 
 @section('content')
     <div class="container">
@@ -8,7 +11,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                        <span>Edit Day</span>
+                        <span>Edit day</span>
                         <span>
                             <a class="link-light" href="{{ route('days.previous', $day) }}">Previous</a>
                             <a class="link-light" href="{{ route('days.next', $day) }}">Next</a>

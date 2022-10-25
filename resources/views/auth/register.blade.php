@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Register',
+    'description' => 'Sign-up and start storing your memories with ' . config('app.app.name') . '.'
+])
 
 @section('content')
 <div class="container">

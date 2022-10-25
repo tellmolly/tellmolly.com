@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Year in review',
+    'description' => 'Review your year using the convenient year overview.'
+])
 
 @section('content')
     <div class="container">

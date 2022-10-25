@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Login',
+    'description' => 'Log in to get access to your saved memories and to add new diary entries.'
+])
 
 @section('content')
 <div class="container">

@@ -1,4 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'description' => config('app.name') . ' is your personal diary and the easiest way to monitor your day-to-day well-being and mental health.'
+])
 
 @section('content')
 

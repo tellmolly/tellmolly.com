@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Confirm password',
+    'description' => 'Confirm your password before continuing.'
+])
 
 @section('content')
 <div class="container">

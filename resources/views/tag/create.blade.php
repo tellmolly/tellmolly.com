@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'New - Tags',
+    'description' => 'Create a new tag to aid you in organizing your memories.'
+])
 
 @section('content')
     <div class="container">
@@ -7,7 +10,7 @@
 
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create Tag</div>
+                    <div class="card-header">New tag</div>
 
                     <div class="card-body">
                         @if (session('status'))

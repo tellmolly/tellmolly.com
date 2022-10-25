@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'Reset Password',
+    'description' => 'Request a password reset link to regain access to your account.'
+])
 
 @section('content')
 <div class="container">

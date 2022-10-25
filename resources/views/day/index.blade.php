@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'List - Days',
+    'description' => 'Quickly check out your previously stored days.'
+])
 
 @section('content')
     <div class="container">

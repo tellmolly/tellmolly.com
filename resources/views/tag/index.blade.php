@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => 'List - Tags',
+    'description' => 'Review your tags.'
+])
 
 @section('content')
     <div class="container">

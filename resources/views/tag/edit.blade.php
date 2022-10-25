@@ -1,4 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.app', [
+    'title' => $tag->name . ' - Tags',
+    'description' => 'Edit your tags to suit your style.'
+])
 
 @section('content')
     <div class="container">
@@ -7,7 +10,7 @@
 
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Edit Tag</div>
+                    <div class="card-header">Edit tag</div>
 
                     <div class="card-body">
                         @if (session('status'))

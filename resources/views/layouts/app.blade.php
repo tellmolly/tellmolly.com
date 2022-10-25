@@ -7,7 +7,20 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @php($title = (isset($title) ? "$title - " : '') . config('app.name'))
+
+    <title>{{ $title }}</title>
+
+    <meta name="description" content="{{ $description }}">
+
+    <meta property="og:title" content="{{ $title }}"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta property="og:site_name" content="{{ config('app.name') }}"/>
+    <meta property="og:locale" content="en_US"/>
+    <meta property="og:description" content="{{ $description }}">
+
+    <meta name="robots" content="index, follow">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
