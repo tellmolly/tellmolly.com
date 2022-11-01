@@ -33,7 +33,7 @@
                                 <a href="{{ route('days.edit', $day->id) }}" class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center"
                                     ><span>{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
                                         @foreach($day->tags as $tag)
-                                            <span class="badge " style="background-color: {{ $tag->color }}">{{ $tag->name }}</span>
+                                            <span class="badge " style="background-color: {{ $tag->color }}; color: {{ $tag->fontColor() }}">{{ $tag->name }}</span>
                                         @endforeach
                                     </span>
                                     <span>{!! $day->category->name !!}</span>
