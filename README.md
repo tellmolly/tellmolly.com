@@ -1,4 +1,4 @@
-# Year-Day-Calendar
+# Tell Molly (_tellmolly.com_)
 
 > Track your days by assigning a category.
 
