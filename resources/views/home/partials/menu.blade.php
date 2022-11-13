@@ -1,5 +1,8 @@
 <div class="col-md-4 mb-3">
     <div class="list-group">
+        <a href="{{ route('statistic.index') }}" class="list-group-item list-group-item-action {{ request()->route()->named('statistic.index') ? 'active' : '' }}">
+            Dashboard
+        </a>
         <a href="{{ route('days.create') }}" class="list-group-item list-group-item-action {{ request()->route()->named('days.create') ? 'active' : '' }}">
             New day
         </a>

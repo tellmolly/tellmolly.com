@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('days/jump', [\App\Http\Controllers\DayController::class, 'jump'])->name('days.jump');
     Route::get('days/{day}/previous', [\App\Http\Controllers\DayController::class, 'previous'])->name('days.previous');
     Route::get('days/{day}/next', [\App\Http\Controllers\DayController::class, 'next'])->name('days.next');
+    Route::get('dashboard', [\App\Http\Controllers\StatisticController::class, 'index'])->name('statistic.index');
 });

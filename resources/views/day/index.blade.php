@@ -9,26 +9,6 @@
             @include('home.partials.menu')
 
             <div class="col-md-8">
-
-                <div class="row row-cols-2 g-4 mb-3">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $longestStreak[0]->max_streak ?? 0 }}</h5>
-                                <p class="card-text">Longest Streak</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $currentStreak[0]->streak ?? 0 }}</h5>
-                                <p class="card-text">Current Streak</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <span>Days ({{ $days->total() }})</span>
