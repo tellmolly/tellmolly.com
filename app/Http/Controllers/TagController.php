@@ -17,8 +17,11 @@ class TagController extends Controller
 
     public function index(Request $request): View
     {
+        $sortOrder = $request->query('sort', 'a-z');
+
         return view('tag.index', [
-            'tags' => $request->user()->tags()->withCount('days')->paginate()
+            'tags' => $request->user()->tags()->withCount('days')->sortBy($sortOrder)->paginate()->withQueryString(),
+            'sortOrder' => $sortOrder
         ]);
     }
 

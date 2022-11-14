@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -54,6 +55,18 @@ class Tag extends Model
         );
 
         return '#' . (($yiq > 0.5) ? "000000" : "ffffff");
+    }
+
+    public function scopeSortBy(Builder $query, string $sortOrder): Builder
+    {
+        [$column, $direction] = match($sortOrder){
+            default => ['name', 'asc'],
+            'z-a' => ['name', 'desc'],
+            'uses-asc' => ['days_count', 'asc'],
+            'uses-desc' => ['days_count', 'desc'],
+        };
+
+        return $query->orderBy($column, $direction);
     }
 
     public function days(): BelongsToMany

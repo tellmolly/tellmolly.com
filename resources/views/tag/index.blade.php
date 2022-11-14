@@ -19,6 +19,15 @@
                             </div>
                         @endif
 
+                        <form action="{{ route('tags.index') }}" method="get">
+                            <select class="form-select mb-3" name="sort" aria-label="Tag order" onchange="submit()">
+                                <option value="a-z" {{ $sortOrder == "a-z" ? ' selected ' : '' }}>Name [A-Z]</option>
+                                <option value="z-a" {{ $sortOrder == "z-a" ? ' selected ' : '' }}>Name [Z-A]</option>
+                                <option value="uses-asc" {{ $sortOrder == "uses-asc" ? ' selected ' : '' }}>Least uses</option>
+                                <option value="uses-desc" {{ $sortOrder == "uses-desc" ? ' selected ' : '' }}>Most uses</option>
+                            </select>
+                        </form>
+
                         {{ $tags->links() }}
 
                         <div class="list-group mb-3">
