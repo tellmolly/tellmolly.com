@@ -43,8 +43,14 @@ class StatisticController extends Controller
      ) a
  GROUP BY i
  ORDER BY max_streak DESC LIMIT 1"), [
-                'user_id' => auth()->user()->id
-            ])
+                'user_id' => auth()->user()->id,
+            ]),
+            'greatDays' => $request->user()->days()->where('category_id', '=', 1)->count(),
+            'goodDays' => $request->user()->days()->where('category_id', '=', 2)->count(),
+            'averageDays' => $request->user()->days()->where('category_id', '=', 3)->count(),
+            'greatDays1Month' => $request->user()->days()->where('category_id', '=', 1)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
+            'goodDays1Month' => $request->user()->days()->where('category_id', '=', 2)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
+            'averageDays1Month' => $request->user()->days()->where('category_id', '=', 3)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
         ]);
     }
 }

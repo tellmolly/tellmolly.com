@@ -62,6 +62,63 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="row row-cols-2 g-4 mb-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $greatDays }}</h5>
+                                <p class="card-text">Great days (overall)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $greatDays1Month }}</h5>
+                                <p class="card-text">Great days (last 30 days)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-cols-2 g-4 mb-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $goodDays }}</h5>
+                                <p class="card-text">Good days (overall)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $goodDays1Month }}</h5>
+                                <p class="card-text">Good days (last 30 days)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row row-cols-2 g-4 mb-3">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $averageDays }}</h5>
+                                <p class="card-text">Average days (overall)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $averageDays1Month }}</h5>
+                                <p class="card-text">Average days (last 30 days)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
