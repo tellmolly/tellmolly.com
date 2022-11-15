@@ -93,7 +93,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                    <a class="dropdown-item" href="{{ route('days.create') }}">New entry...</a>
-                                   <a class="dropdown-item" href="#">Settings</a>
+                                   <a class="dropdown-item" href="{{ route('profile.edit') }}">Settings</a>
                                     <hr class="dropdown-divider">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
