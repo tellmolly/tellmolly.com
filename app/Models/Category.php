@@ -10,6 +10,12 @@ class Category extends Model
 {
     use HasFactory;
 
+    const GREAT = 1;
+    const GOOD = 2;
+    const AVERAGE = 3;
+    const BAD = 4;
+    const WORST = 5;
+
     protected $fillable = [
         'name',
         'color'
