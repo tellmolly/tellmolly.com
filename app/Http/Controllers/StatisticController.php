@@ -15,6 +15,16 @@ class StatisticController extends Controller
 {
     public function index(Request $request)
     {
+        $categories = Category::query()->whereIn('order', [
+            Category::GREAT,
+            Category::GOOD,
+            Category::AVERAGE
+        ])->get();
+
+        $great = $categories->firstWhere('order', '=', Category::GREAT);
+        $good = $categories->firstWhere('order', '=', Category::GOOD);
+        $average = $categories->firstWhere('order', '=', Category::AVERAGE);
+
         return view('statistic.index', [
             'lastWeek' => $request->user()->days()->with('category')->where('date', '=', now()->subWeek()->format('Y-m-d'))->first(),
             'onThisDay' => $request->user()->days()->with('category')->where('date', '=', now()->subYear()->format('Y-m-d'))->first(),
@@ -45,12 +55,12 @@ class StatisticController extends Controller
  ORDER BY max_streak DESC LIMIT 1"), [
                 'user_id' => auth()->user()->id,
             ]),
-            'greatDays' => $request->user()->days()->where('category_id', '=', 1)->count(),
-            'goodDays' => $request->user()->days()->where('category_id', '=', 2)->count(),
-            'averageDays' => $request->user()->days()->where('category_id', '=', 3)->count(),
-            'greatDays1Month' => $request->user()->days()->where('category_id', '=', 1)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
-            'goodDays1Month' => $request->user()->days()->where('category_id', '=', 2)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
-            'averageDays1Month' => $request->user()->days()->where('category_id', '=', 3)->where('date', '>', now()->subMonth()->format('Y-m-d'))->count(),
+            'greatDays' => $request->user()->days()->where('category_id', '=', $great->id)->count(),
+            'goodDays' => $request->user()->days()->where('category_id', '=', $good->id)->count(),
+            'averageDays' => $request->user()->days()->where('category_id', '=', $average->id)->count(),
+            'greatDays1Month' => $request->user()->days()->where('category_id', '=', $great->id)->where('date', '>', now()->subDays(30)->format('Y-m-d'))->count(),
+            'goodDays1Month' => $request->user()->days()->where('category_id', '=', $good->id)->where('date', '>', now()->subDays(30)->format('Y-m-d'))->count(),
+            'averageDays1Month' => $request->user()->days()->where('category_id', '=', $average->id)->where('date', '>', now()->subDays(30)->format('Y-m-d'))->count(),
         ]);
     }
 }
