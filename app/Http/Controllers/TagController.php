@@ -20,7 +20,10 @@ class TagController extends Controller
         $sortOrder = $request->query('sort', 'a-z');
 
         return view('tag.index', [
-            'tags' => $request->user()->tags()->withCount('days')->sortBy($sortOrder)->paginate()->withQueryString(),
+            'tags' => $request->user()->tags()->withCount('days')
+                ->sortBy($sortOrder)
+                ->sortBy("name", 'asc')
+                ->paginate()->withQueryString(),
             'sortOrder' => $sortOrder
         ]);
     }
