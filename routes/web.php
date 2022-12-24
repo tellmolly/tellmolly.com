@@ -30,8 +30,6 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 */
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-Route::get('/calendar', [CalendarController::class, 'index'])->name('calendar');
-Route::get('year/{year?}', [YearController::class, 'index'])->name('year.index');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
@@ -61,6 +59,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+    Route::get('year/{year?}', [YearController::class, 'index'])->name('year.index');
 
     Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice');
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)

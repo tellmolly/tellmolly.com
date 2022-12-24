@@ -11,10 +11,6 @@ class YearController extends Controller
 {
     public function index(Request $request, $year = null): View|RedirectResponse
     {
-        if ( ! $request->user()) {
-            return redirect()->route('login');
-        }
-
         if ($year === null) {
             $year = config('calendar.year');
         }
