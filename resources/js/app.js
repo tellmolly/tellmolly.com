@@ -11,8 +11,8 @@ if (document.getElementById("calendar")) {
 
     const calendar = new Calendar(calendarEl, {
         headerToolbar: {
-            start: '',
-            center: 'title',
+            start: 'title',
+            center: '',
             right: 'prev today next'
         },
         navLinks: false, // can click day/week names to navigate views

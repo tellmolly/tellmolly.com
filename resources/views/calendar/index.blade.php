@@ -4,5 +4,14 @@
 ])
 
 @section('content')
-    <div class="container" id="calendar"></div>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                Calendar
+            </div>
+            <div class="card-body">
+                <div  id="calendar"></div>
+            </div>
+        </div>
+    </div>
 @endsection
