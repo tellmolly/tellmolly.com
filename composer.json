@@ -1,9 +1,9 @@
 {
-    "name": "laravel/laravel",
+    "name": "tellmolly/tellmolly",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "description": "Improve your mental health by journaling using comments, categories and tags.",
+    "keywords": ["journal", "diary", "mental-health", "journaling", "tracker", "docker", "laravel", "statistics"],
+    "license": "AGPL-3.0-or-later",
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
