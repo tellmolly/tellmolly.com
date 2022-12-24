@@ -16,8 +16,4 @@
             List tags
         </a>
     </div>
-    <ul class="list-inline small text-secondary mt-1">
-        <li class="list-inline-item"><a class="link-secondary text-decoration-none" href="{{ route('page.privacy-policy') }}">Privacy</a></li>
-        <li class="list-inline-item">Tell Molly &copy; {{ date('Y') }}</li>
-    </ul>
 </div>
