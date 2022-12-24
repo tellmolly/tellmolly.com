@@ -23,6 +23,7 @@ class DayEditRequest extends FormRequest
                     ->ignore($this->day->id)
             ],
             'comment' => ['nullable'],
+            'grateful_for' => ['nullable'],
             'category_id' => [
                 'required',
                 Rule::exists(Category::class, 'id')

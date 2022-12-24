@@ -15,6 +15,7 @@ class Day extends Model
     protected $fillable = [
         'date',
         'comment',
+        'grateful_for',
         'category_id'
     ];
 
