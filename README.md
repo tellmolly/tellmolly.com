@@ -19,6 +19,13 @@
 Once your installation is up and running you may want to disable user registration. 
 To do this simply disable `ENABLE_REGISTER` in your `.env` file
 
+## Running tasks
+
+Run the scheduled tasks: 
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+
 ## License
 
 See [LICENSE](LICENSE).
