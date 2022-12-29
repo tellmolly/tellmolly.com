@@ -15,7 +15,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('tm:notify-inactive-users')
+            ->dailyAt('13:00')
+            ->withoutOverlapping();
+
+        $schedule->command('tm:delete-inactive-users')
+            ->dailyAt('14:00')
+            ->withoutOverlapping();
     }
 
     /**
