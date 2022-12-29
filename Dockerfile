@@ -9,6 +9,9 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 
 RUN apt-get update -y && apt-get install -y sendmail unzip
 
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
 ARG HOST_USER_ID=1000
 ARG HOST_GROUP_ID=1000
 
@@ -29,6 +32,8 @@ RUN curl -sS https://getcomposer.org/installer | \
 COPY . .
 
 RUN composer install
+
+RUN npm install && npm run build
 
 RUN mkdir -p /home/dockeruser \
   && chown -R dockeruser:dockergroup /home/dockeruser
