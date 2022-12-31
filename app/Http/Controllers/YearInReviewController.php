@@ -11,7 +11,8 @@ class YearInReviewController extends Controller
 {
     public function show(Request $request)
     {
-        $year = config('calendar.year');
+        $year = 2022;
+        $user = $request->user();
 
         $categories = Category::query()->whereIn('order', [
             Category::GREAT,
@@ -37,7 +38,7 @@ ORDER BY amount desc"), [
         ]);
 
         $overallTagUsage = 0;
-        foreach($tagQuery as $row) {
+        foreach ($tagQuery as $row) {
             $overallTagUsage += $row->amount;
         }
 
@@ -49,14 +50,31 @@ ORDER BY amount desc"), [
             $mostUsedTagUsage = null;
         }
 
+        $countQueries = DB::query()->select(DB::raw('count(*) as amount'))->from('days')->where('user_id', $user->id)->whereYear('date', $year)->whereNotNull('grateful_for')
+            ->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)->where('category_id', '=', $great->id)
+            )
+            ->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)->where('category_id', '=', $good->id)
+            )->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)->where('category_id', '=', $average->id)
+            )->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)->where('category_id', '=', $bad->id)
+            )->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)->where('category_id', '=', $worst->id)
+            )->unionAll(
+                DB::query()->selectRaw('count(*)')->from('days')->where('user_id', $user->id)->whereYear('date', $year)
+            )
+            ->get();
+
         return view('year-in-review.show', [
             'year' => $year,
-            'gratefulDays' => $request->user()->days()->whereYear('date', $year)->whereNotNull('grateful_for')->count(),
-            'greatDays' => $request->user()->days()->whereYear('date', $year)->where('category_id', '=', $great->id)->count(),
-            'goodDays' => $request->user()->days()->whereYear('date', $year)->where('category_id', '=', $good->id)->count(),
-            'normalDays' => $request->user()->days()->whereYear('date', $year)->where('category_id', '=', $average->id)->count(),
-            'badDays' => $request->user()->days()->whereYear('date', $year)->where('category_id', '=', $bad->id)->count(),
-            'worstDays' => $request->user()->days()->whereYear('date', $year)->where('category_id', '=', $worst->id)->count(),
+            'gratefulDays' => $countQueries[0]->amount,
+            'greatDays' => $countQueries[1]->amount,
+            'goodDays' => $countQueries[2]->amount,
+            'normalDays' => $countQueries[3]->amount,
+            'badDays' => $countQueries[4]->amount,
+            'worstDays' => $countQueries[5]->amount,
             'longestGreatDayStreak' => DB::select(DB::raw("SELECT COUNT(*) max_streak
   FROM
      ( SELECT x.*
@@ -83,7 +101,7 @@ ORDER BY amount desc"), [
                 'user_id' => auth()->user()->id,
                 'year' => $year
             ])[0]->best_month,
-            'daysTracked' => $request->user()->days()->whereYear('date', $year)->count(),
+            'daysTracked' => $countQueries[6]->amount,
             'differentTagsUsed' => count($tagQuery),
             'overallTagUsage' => $overallTagUsage,
             'mostUsedTag' => $mostUsedTag,

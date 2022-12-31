@@ -45,7 +45,6 @@
 }
 
 .stacked-cards {
-    padding-top: 40px;
     padding-bottom: 15px;
 }
 
@@ -65,6 +64,12 @@
     .stacked-cards li {
         height: 180px;
     }
+
+}
+
+.container-fixed {
+    max-width: 767px;
+    margin: 0 auto;
 }
 
 .stacked-cards li {
@@ -76,7 +81,7 @@
 }
 
 .stacked-cards li:nth-child(n) {
-    background-color: $secondary;
+    background-color: $light;
 }
 
 .stacked-cards li:nth-child(2n) {

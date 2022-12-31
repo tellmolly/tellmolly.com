@@ -52,3 +52,15 @@ document.querySelectorAll('form.confirm').forEach((form) => {
 import autosize from "autosize/dist/autosize";
 
 autosize(document.querySelector('#comment'));
+
+import StackedCards from "./stackedCards.js";
+
+
+if (document.querySelectorAll(".mycards").length > 0) {
+    const stackedCard = new StackedCards({
+        selector: '.mycards',
+        layout: "slide",
+        transformOrigin: "center",
+    });
+    stackedCard.init();
+}
