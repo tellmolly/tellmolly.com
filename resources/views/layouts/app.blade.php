@@ -57,6 +57,9 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->route()->named('year.index') ? 'active' : '' }}" href="{{ route('year.index') }}">{{ __('Year') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->route()->named('year-in-review.show') ? 'active' : '' }}" href="{{ route('year-in-review.show') }}">{{ __('Year in Review') }} <span class="badge bg-primary">New</span></a>
+                            </li>
                         @endauth
                     </ul>
 

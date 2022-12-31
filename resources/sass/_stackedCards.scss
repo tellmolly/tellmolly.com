@@ -1,0 +1,97 @@
+.stacked-cards {
+    position: relative;
+}
+.stacked-cards ul {
+    position: relative;
+    max-width: 60%;
+    margin: 0 auto;
+    padding-left: 0;
+}
+
+.stacked-cards li {
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px 0 #333;
+    list-style: none;
+    width: 65%;
+    position: absolute;
+    left: 50%;
+    transition: 0.5s ease transform;
+}
+
+.stacked-cards li:after {
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.stacked-cards li.active:after {
+    display: none;
+}
+.stacked-cards li img {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    z-index: 4;
+}
+.stacked-cards li.active {
+    cursor: default;
+    box-shadow: 0 5px 10px 0 #333;
+    transition: 0.5s ease transform;
+}
+
+.stacked-cards {
+    padding-top: 40px;
+    padding-bottom: 15px;
+}
+
+.stacked-cards-fanOut {
+    padding-bottom: 40px;
+}
+
+.stacked-cards-fanOut li img {
+    max-height: 200px;
+}
+
+.stacked-cards li {
+    height: 250px;
+}
+
+@media (max-width: 767px) {
+    .stacked-cards li {
+        height: 180px;
+    }
+}
+
+.stacked-cards li {
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.stacked-cards li:nth-child(n) {
+    background-color: $secondary;
+}
+
+.stacked-cards li:nth-child(2n) {
+    background-color: $info;
+}
+
+.stacked-cards li:nth-child(3n) {
+    background-color: $warning;
+}
+
+.stacked-cards li:nth-child(4n) {
+    background-color: $danger;
+}
+
+.stacked-cards li:nth-child(5n) {
+    background-color: $success;
+}
+
