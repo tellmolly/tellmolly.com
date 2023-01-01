@@ -37,8 +37,9 @@
                                             @if (checkdate($monthNumber, $dayOfMonth, $year))
                                                 @if ($days->where('date', $year . '-' . str_pad($monthNumber, 2, 0, STR_PAD_LEFT) . '-' . str_pad($dayOfMonth, 2, 0, STR_PAD_LEFT))->count())
                                                     <td class="year_overview__item" style="background-color: {{ $days->where('date', $year . '-' . str_pad($monthNumber, 2, "0", STR_PAD_LEFT) . '-' . str_pad($dayOfMonth, 2, "0", STR_PAD_LEFT))->first()->category->color }}">
-                                                        <div class="year_overview__item__content">
-
+                                                        <div class="year_overview__item__content" style="display: flex; position:relative;">
+                                                            <a href="{{ route('days.edit', $days->where('date', $year . '-' . str_pad($monthNumber, 2, 0, STR_PAD_LEFT) . '-' . str_pad($dayOfMonth, 2, 0, STR_PAD_LEFT))->first()) }}"
+                                                            class="stretched-link text-decoration-none">&nbsp;</a>
                                                         </div>
                                                     </td>
                                                 @else
