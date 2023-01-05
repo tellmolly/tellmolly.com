@@ -29,7 +29,8 @@ Route::get('days', function (Request $request) {
                 'backgroundColor' => $day->category->color,
                 'textColor' => $day->category->font_color,
                 'start' => $day->date,
-                'display' => 'background'
+                'display' => 'background',
+                'url' => route('days.edit', $day->id)
             ]
         ];
         foreach ($day->tags as $tag) {
@@ -38,6 +39,7 @@ Route::get('days', function (Request $request) {
                 'borderColor' => $tag->color,
                 'title' => $tag->name,
                 'start' => $day->date,
+                'url' => route('days.edit', $day->id)
             ];
         }
 

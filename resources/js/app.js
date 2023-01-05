@@ -1,9 +1,9 @@
 import './bootstrap';
 
-import '@fullcalendar/core/vdom' // solves problem with Vite
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap5';
+import interactionPlugin from '@fullcalendar/interaction';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // needs additional webpack config!
 
 if (document.getElementById("calendar")) {
@@ -21,7 +21,13 @@ if (document.getElementById("calendar")) {
         events: '/api/days',
         themeSystem: 'bootstrap5',
         firstDay: 1, // monday
-        plugins: [bootstrapPlugin, dayGridPlugin]
+        plugins: [bootstrapPlugin, dayGridPlugin, interactionPlugin],
+
+        eventClick: function(info) {
+            if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+                window.location.href  = info.event.url
+            }
+        },
     });
 
     calendar.render();
