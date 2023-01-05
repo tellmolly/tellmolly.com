@@ -63,3 +63,7 @@
 }
 
 @import 'stackedCards';
+
+.fc-event.fc-event-start.fc-event-end.fc-bg-event {
+    cursor: pointer;
+}
