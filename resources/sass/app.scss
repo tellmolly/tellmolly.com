@@ -67,3 +67,24 @@
 .fc-event.fc-event-start.fc-event-end.fc-bg-event {
     cursor: pointer;
 }
+
+div.year-month .fc-daygrid-day-events {
+    display: none;
+}
+//div.year-month {
+//    & .fc-scrollgrid {
+//        border-color: transparent !important;
+//    }
+//    & .fc-scrollgrid td:last-of-type {
+//        border-right-color: transparent !important;
+//    }
+//    & .fc-scrollgrid-section.fc-scrollgrid-section-body td[role='presentation'] {
+//        border-bottom-color: transparent !important;
+//    }
+//    & [role='row']:last-of-type td {
+//        border-bottom-color: transparent !important;
+//    }
+//    & th[role='presentation'] {
+//        border-right-color: transparent !important;
+//    }
+//}

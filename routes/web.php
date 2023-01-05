@@ -8,6 +8,7 @@ use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\YearController;
+use App\Http\Controllers\YearMonthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
@@ -63,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+    Route::get('year/months/{year?}', [YearMonthController::class, 'index'])->name('year-month.index');
     Route::get('year/{year?}', [YearController::class, 'index'])->name('year.index');
 
     Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice');
