@@ -22,6 +22,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('tm:delete-inactive-users')
             ->dailyAt('14:00')
             ->withoutOverlapping();
+
+        $schedule->command('tm:reset-demo')
+            ->hourlyAt(30)
+            ->withoutOverlapping();
     }
 
     /**

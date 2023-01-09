@@ -11,4 +11,13 @@ class PageController extends Controller
         return view('page.privacy_policy');
     }
 
+    public function demo(): View
+    {
+        return view('page.demo');
+    }
+
+    public function faq(): View
+    {
+        return view('page.faq');
+    }
 }

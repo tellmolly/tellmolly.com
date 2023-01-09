@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DayController;
+use App\Http\Controllers\DemoController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
@@ -33,10 +34,16 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('page.privacy-policy');
+Route::get('/faq', [PageController::class, 'faq'])->name('page.faq');
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    if (config('calendar.actions.demo')) {
+        Route::get('/demo', [PageController::class, 'demo'])->name('page.demo');
+        Route::post('/demo', [DemoController::class, 'login'])->name('demo.login');
+    }
 
     if (config('calendar.actions.register')) {
         Route::get('register', [RegisteredUserController::class, 'create'])->name('register');

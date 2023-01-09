@@ -91,7 +91,7 @@ ORDER BY amount desc"), [
                 'user_id' => auth()->user()->id,
                 'category_id' => $great->id,
                 'year' => $year
-            ])[0]->max_streak,
+            ])[0]->max_streak ?? 0,
             'bestMonth' => DB::select(DB::raw("SELECT count(*) as amount_days, category_id, MONTHNAME(`date`) as best_month
   FROM days where year(`date`) = :year and user_id = :user_id
 
@@ -100,7 +100,7 @@ ORDER BY amount desc"), [
   LIMIT 1"), [
                 'user_id' => auth()->user()->id,
                 'year' => $year
-            ])[0]->best_month,
+            ])[0]->best_month ?? '-',
             'daysTracked' => $countQueries[6]->amount,
             'differentTagsUsed' => count($tagQuery),
             'overallTagUsage' => $overallTagUsage,

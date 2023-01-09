@@ -20,6 +20,10 @@ class ProfileController extends Controller
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        if ($request->user()->email === config('calendar.demo.email')) {
+            return Redirect::route('profile.edit');
+        }
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
@@ -33,6 +37,10 @@ class ProfileController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
+        if ($request->user()->email === config('calendar.demo.email')) {
+            return Redirect::route('profile.edit');
+        }
+
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current-password'],
         ]);

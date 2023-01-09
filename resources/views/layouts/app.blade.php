@@ -64,6 +64,17 @@
                                 <a class="nav-link {{ request()->route()->named('year-in-review.show') ? 'active' : '' }}" href="{{ route('year-in-review.show') }}">{{ __('Year in Review') }}</a>
                             </li>
                         @endauth
+
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->route()->named('page.faq') ? 'active' : '' }}" href="{{ route('page.faq') }}">{{ __('FAQ') }}</a>
+                            </li>
+                            @if(config('calendar.actions.demo'))
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->route()->named('page.demo') ? 'active' : '' }}" href="{{ route('page.demo') }}">{{ __('Demo') }}</a>
+                            </li>
+                            @endif
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
