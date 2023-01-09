@@ -58,7 +58,7 @@
                                 <a class="nav-link {{ request()->route()->named('year.index') ? 'active' : '' }}" href="{{ route('year.index') }}">{{ __('Year') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ request()->route()->named('year-month.index') ? 'active' : '' }}" href="{{ route('year-month.index') }}">{{ __('Year in Months') }} <span class="badge bg-primary">New</span></a>
+                                <a class="nav-link {{ request()->route()->named('year-month.index') ? 'active' : '' }}" href="{{ route('year-month.index') }}">{{ __('Year in Months') }}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->route()->named('year-in-review.show') ? 'active' : '' }}" href="{{ route('year-in-review.show') }}">{{ __('Year in Review') }}</a>
