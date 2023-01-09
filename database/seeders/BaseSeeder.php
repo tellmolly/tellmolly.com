@@ -10,34 +10,34 @@ class BaseSeeder extends Seeder
     public function run()
     {
         Category::firstOrCreate([
+            'order' => Category::GREAT
+        ], [
             'name' => '&#128515;',
             'color' => '#3498DB'
-        ], [
-            'order' => Category::GREAT
         ]);
         Category::firstOrCreate([
+            'order' => Category::GOOD
+        ], [
             'name' => '&#128578;',
             'color' => '#2ECC71'
-        ], [
-            'order' => Category::GOOD
         ]);
         Category::firstOrCreate([
+            'order' => Category::AVERAGE
+        ], [
             'name' => '&#128528;',
             'color' => '#F1C40F'
-        ], [
-            'order' => Category::AVERAGE
         ]);
         Category::firstOrCreate([
+            'order' => Category::BAD
+        ], [
             'name' => '&#128577;',
             'color' => '#E67E22'
-        ], [
-            'order' => Category::BAD
         ]);
         Category::firstOrCreate([
+            'order' => Category::WORST
+        ], [
             'name' => '&#128544;',
             'color' => '#E74C3C'
-        ], [
-            'order' => Category::WORST
         ]);
     }
 }
