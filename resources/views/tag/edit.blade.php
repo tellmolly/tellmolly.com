@@ -29,11 +29,25 @@
                     <div class="card mt-3">
                         <div class="card-header">Days ({{ $tag->days->count() }})</div>
                         <div class="list-group list-group-flush">
+                            <a href="{{ route('year.index', ['tag' => $tag->id]) }}" class="list-group-item list-group-item-action"
+                            >View in Year mode
+                            </a>
+                            <a href="{{ route('year-month.index',['tag' => $tag->id]) }}" class="list-group-item list-group-item-action"
+                            >View in Year in Months mode
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3">
+                        <div class="card-header">Days ({{ $tag->days->count() }})</div>
+                        <div class="list-group list-group-flush">
                             @foreach($tag->days as $day)
-                                <a href="{{ route('days.edit', $day->id) }}" class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center"
-                                    ><span>{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
+                                <a href="{{ route('days.edit', $day->id) }}"
+                                   class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center"
+                                ><span>{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
                                         @foreach($day->tags as $childTag)
-                                            <span class="badge " style="background-color: {{ $childTag->color }}; color: {{ $childTag->fontColor() }}">{{ $childTag->name }}</span>
+                                            <span class="badge "
+                                                  style="background-color: {{ $childTag->color }}; color: {{ $childTag->fontColor() }}">{{ $childTag->name }}</span>
                                         @endforeach
                                     </span>
                                     <span>{!! $day->category->name !!}</span>

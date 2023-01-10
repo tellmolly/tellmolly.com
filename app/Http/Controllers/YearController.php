@@ -19,7 +19,14 @@ class YearController extends Controller
             abort(404);
         }
 
-        $days = $request->user()->days()->with('category')->year($year)->get();
+        $days = $request->user()
+            ->days()
+            ->when($request->get('tag'), function ($query, $tag) {
+                $query->whereRelation('tags', 'id', '=', $tag);
+            })
+            ->with('category')
+            ->year($year)
+            ->get();
 
         return view('year.index', [
             'days' => $days,

@@ -11,8 +11,8 @@
                     <div class="card-header d-flex align-items-center justify-content-between">
                         <span>{{ $year }}</span>
                         <span>
-                            <a class="link-light" href="{{ route('year.index', $year - 1) }}">Previous</a>
-                            <a class="link-light" href="{{ route('year.index', $year + 1) }}">Next</a>
+                            <a class="link-light" href="{{ route('year.index', ['year' => $year - 1, 'tag' => request()->get('tag')]) }}">Previous</a>
+                            <a class="link-light" href="{{ route('year.index', ['year' => $year + 1, 'tag' => request()->get('tag')]) }}">Next</a>
                         </span>
                     </div>
 

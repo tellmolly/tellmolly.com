@@ -11,8 +11,8 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <h1>{{ $year }}</h1>
                     <span>
-                        <a class="" href="{{ route('year-month.index', $year - 1) }}">Previous</a>
-                        <a class="" href="{{ route('year-month.index', $year + 1) }}">Next</a>
+                        <a class="" href="{{ route('year-month.index', ['year' => $year - 1, 'tag' => request()->get('tag')]) }}">Previous</a>
+                        <a class="" href="{{ route('year-month.index', ['year' => $year + 1, 'tag' => request()->get('tag')]) }}">Next</a>
                     </span>
                 </div>
 

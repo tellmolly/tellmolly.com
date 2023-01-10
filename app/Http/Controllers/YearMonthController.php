@@ -37,7 +37,11 @@ class YearMonthController extends Controller
             return collect([]);
         });
 
-        $days = $request->user()->days()->with('category')->year($year)->get();
+        $days = $request->user()->days()
+            ->when($request->get('tag'), function ($query, $tag) {
+                $query->whereRelation('tags', 'id', '=', $tag);
+            })
+            ->with('category')->year($year)->get();
 
 
         $days = $days->map(function ($day) {
