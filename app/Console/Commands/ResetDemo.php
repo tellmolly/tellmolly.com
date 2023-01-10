@@ -28,7 +28,8 @@ class ResetDemo extends Command
         $demoUser->days()->delete();
 
         $this->call('db:seed', [
-            'class' => 'DemoSeeder'
+            'class' => 'DemoSeeder',
+            '--force' => true
         ]);
 
         return Command::SUCCESS;
