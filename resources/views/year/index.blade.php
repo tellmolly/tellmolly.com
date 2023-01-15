@@ -44,8 +44,9 @@
                                                     </td>
                                                 @else
                                                     <td class="year_overview__item">
-                                                        <div class="year_overview__item__content">
-
+                                                        <div class="year_overview__item__content" style="display: flex; position:relative;">
+                                                            <a href="{{ route('days.create', ['initial' => $year . '-' . str_pad($monthNumber, 2, 0, STR_PAD_LEFT) . '-' . str_pad($dayOfMonth, 2, 0, STR_PAD_LEFT)]) }}"
+                                                               class="stretched-link text-decoration-none">&nbsp;</a>
                                                         </div>
                                                     </td>
                                                 @endif

@@ -3,7 +3,7 @@ import './bootstrap';
 /*
  * Calendar
  */
-import { Calendar } from '@fullcalendar/core';
+import {Calendar} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap5';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -26,11 +26,19 @@ if (document.getElementById("calendar")) {
         firstDay: 1, // monday
         plugins: [bootstrapPlugin, dayGridPlugin, interactionPlugin],
 
-        eventClick: function(info) {
+        eventClick: function (info) {
             if (info.jsEvent.target.classList.contains('fc-bg-event')) {
-                window.location.href  = info.event.url
+                window.location.href = info.event.url
             }
         },
+        dateClick: function (info) {
+            if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+                // Handled in eventClick
+                return;
+            }
+
+            window.location.href = window.location.origin + "/days/create?initial=" + info.dateStr
+        }
     });
 
     calendar.render();
@@ -73,9 +81,9 @@ autosize(document.querySelector('#grateful_for'));
 
 const remainingIds = ['grateful_for']
 for (const remainingSpan of remainingIds) {
-    if (document.querySelector('#' + remainingSpan+"-Remaining")) {
+    if (document.querySelector('#' + remainingSpan + "-Remaining")) {
         const parent = document.querySelector('#' + remainingSpan);
-        const span = document.querySelector('#' + remainingSpan+"-Remaining");
+        const span = document.querySelector('#' + remainingSpan + "-Remaining");
 
         parent.addEventListener('input', function (evt) {
             updateLimit(span, parent)
@@ -84,11 +92,10 @@ for (const remainingSpan of remainingIds) {
     }
 }
 
-function updateLimit(span, input)
-{
+function updateLimit(span, input) {
     const max = input.getAttribute('maxlength');
     let current = input.value.length;
-    span.textContent = max-current;
+    span.textContent = max - current;
 }
 
 /*
@@ -108,7 +115,7 @@ if (document.querySelectorAll(".mycards").length > 0) {
 /*
  * Year Months
  */
-for (const month of [1,2,3,4,5,6,7,8,9,10,11,12]) {
+for (const month of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) {
     if (document.getElementById("calendar-" + month)) {
         const calendarEl = document.getElementById('calendar-' + month);
 
@@ -117,17 +124,16 @@ for (const month of [1,2,3,4,5,6,7,8,9,10,11,12]) {
             navLinks: false, // can click day/week names to navigate views
             editable: false,
             dayMaxEventRows: 6, // allow "more" link when too many events
-            events: function(info, successCallback, failureCallback) {
+            events: function (info, successCallback, failureCallback) {
                 if (typeof window.tellmolly_events[month] == "undefined") {
                     successCallback(
-                       []
+                        []
                     )
                 } else {
                     successCallback(
                         window.tellmolly_events[month]
                     )
                 }
-
             },
             themeSystem: 'bootstrap5',
             firstDay: 1, // monday
@@ -138,6 +144,14 @@ for (const month of [1,2,3,4,5,6,7,8,9,10,11,12]) {
                 if (info.jsEvent.target.classList.contains('fc-bg-event')) {
                     window.location.href = info.event.url
                 }
+            },
+            dateClick: function (info) {
+                if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+                    // Handled in eventClick
+                    return;
+                }
+
+                window.location.href = window.location.origin + "/days/create?initial=" + info.dateStr
             },
             initialDate: new Date(window.tellmolly_year, month - 1, 1)
         });
