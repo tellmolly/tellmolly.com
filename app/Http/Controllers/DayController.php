@@ -47,7 +47,9 @@ class DayController extends Controller
         $request->user()->days()->save($day);
 
         $day->tags()->sync(
-            $request->user()->tags()->whereIn('slug', $request->tag_ids)->pluck('id')->toArray()
+            $request->tag_ids
+                ? $request->user()->tags()->whereIn('slug', $request->tag_ids)->pluck('id')->toArray()
+                : []
         );
 
         return redirect()->route('days.index');
@@ -68,7 +70,9 @@ class DayController extends Controller
         $day->save();
 
         $day->tags()->sync(
-            $request->user()->tags()->whereIn('slug', $request->tag_ids)->pluck('id')->toArray()
+            $request->tag_ids
+                ? $request->user()->tags()->whereIn('slug', $request->tag_ids)->pluck('id')->toArray()
+                : []
         );
 
         return redirect()->route('days.index');
