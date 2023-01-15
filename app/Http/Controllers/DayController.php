@@ -28,8 +28,12 @@ class DayController extends Controller
 
     public function create(Request $request): View
     {
+        $validated = $request->validate([
+            'initial' => ['sometimes', 'date_format:Y-m-d']
+        ]);
+
         return view('day.create', [
-            'day' => new Day(['date' => date('Y-m-d')]),
+            'day' => new Day(['date' => $validated['initial'] ?? date('Y-m-d')]),
             'categories' => Category::orderBy('order')->get(),
             'tags' => $request->user()->tags
         ]);
