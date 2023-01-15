@@ -1,4 +1,4 @@
-<form action="{{ route('days.destroy', $day->id) }}" method="post" class="confirm">
+<form action="{{ route('days.destroy', $day) }}" method="post" class="confirm">
     @method('DELETE')
     @csrf
 

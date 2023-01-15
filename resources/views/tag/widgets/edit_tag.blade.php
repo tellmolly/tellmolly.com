@@ -1,4 +1,4 @@
-<form action="{{ route('tags.update', $tag->id) }}" method="post">
+<form action="{{ route('tags.update', $tag) }}" method="post">
     @method('PUT')
     @csrf
 
