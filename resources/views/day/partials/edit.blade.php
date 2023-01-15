@@ -57,8 +57,9 @@
 
 <div class="mb-3">
     <label for="grateful_for" class="form-label">I am grateful for</label>
-    <input type="text" maxlength="255" class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="grateful_for" name="grateful_for"
-          value="{{ old('grateful_for', $day->grateful_for) }}" placeholder="Today I am grateful for...">
+    <textarea class="form-control {{ $errors->has('grateful_for') ? ' is-invalid ' : '' }}" id="grateful_for" name="grateful_for" placeholder="Today I am grateful for..."  maxlength="255"
+    >{{ old('grateful_for', $day->grateful_for) }}</textarea>
+    <div id="grateful_for-Help" class="form-text">Characters remaining: <span id="grateful_for-Remaining"></span></div>
     @if($errors->has('grateful_for'))
         <div class="invalid-feedback">
             {{ $errors->first('grateful_for') }}
