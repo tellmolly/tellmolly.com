@@ -32,7 +32,7 @@ class DayStoreRequest extends FormRequest
             'tag_ids' => ['nullable'],
             'tag_ids.*' => Rule::forEach(function ($value, $attribute) {
                 return [
-                    Rule::exists(Tag::class, 'id')->where(fn($query) => $query->where('user_id', $this->user()->id)),
+                    Rule::exists(Tag::class, 'slug')->where(fn($query) => $query->where('user_id', $this->user()->id)),
                 ];
             }),
         ];

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class Tag extends Model
 {
@@ -72,5 +73,37 @@ class Tag extends Model
     public function days(): BelongsToMany
     {
         return $this->belongsToMany(Day::class);
+    }
+
+    public function resolveRouteBinding($value, $field = null): Model|null
+    {
+        return $this
+            ->where('user_id', auth()->id())
+            ->where($this->getRouteKeyName(), $value)
+            ->firstOrFail();
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    protected static function booted()
+    {
+        self::creating(function (Tag $tag) {
+            if ( ! isset($tag->slug)) {
+                $count = 1;
+                do {
+                    $tag->slug = Str::slug($tag->name) . ($count > 1 ? '-' . $count : '');
+
+                    $count++;
+                } while (
+                    Tag::query()
+                        ->where('user_id', '=', auth()->id())
+                        ->where('slug', $tag->slug)
+                        ->exists()
+                );
+            }
+        });
     }
 }

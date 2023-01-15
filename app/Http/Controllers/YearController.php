@@ -22,7 +22,7 @@ class YearController extends Controller
         $days = $request->user()
             ->days()
             ->when($request->get('tag'), function ($query, $tag) {
-                $query->whereRelation('tags', 'id', '=', $tag);
+                $query->whereRelation('tags', 'slug', '=', $tag);
             })
             ->with('category')
             ->year($year)

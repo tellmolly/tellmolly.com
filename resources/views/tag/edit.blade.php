@@ -29,10 +29,10 @@
                     <div class="card mt-3">
                         <div class="card-header">Days ({{ $tag->days->count() }})</div>
                         <div class="list-group list-group-flush">
-                            <a href="{{ route('year.index', ['tag' => $tag->id]) }}" class="list-group-item list-group-item-action"
+                            <a href="{{ route('year.index', ['tag' => $tag->slug]) }}" class="list-group-item list-group-item-action"
                             >View in Year mode
                             </a>
-                            <a href="{{ route('year-month.index',['tag' => $tag->id]) }}" class="list-group-item list-group-item-action"
+                            <a href="{{ route('year-month.index',['tag' => $tag->slug]) }}" class="list-group-item list-group-item-action"
                             >View in Year in Months mode
                             </a>
                         </div>
