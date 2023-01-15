@@ -24,7 +24,7 @@ class DayStoreRequest extends FormRequest
                     ->where(fn($query) => $query->where('user_id', $this->user()->id))
             ],
             'comment' => ['nullable'],
-            'grateful_for' => ['nullable'],
+            'grateful_for' => ['nullable', 'string', 'max:255'],
             'category_id' => [
                 'required',
                 Rule::exists(Category::class, 'id')
