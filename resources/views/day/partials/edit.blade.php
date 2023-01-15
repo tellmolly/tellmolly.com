@@ -1,3 +1,5 @@
+@include('layouts.partials.errors')
+
 <div class="mb-3">
     <label for="date" class="form-label">Date</label>
     <input type="date" class="form-control {{ $errors->has('date') ? ' is-invalid ' : '' }}" id="date" name="date" placeholder="Enter date" value="{{ old('date', $day->date) }}" required>

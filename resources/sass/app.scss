@@ -62,6 +62,13 @@
     font-family: 'Pacifico', 'serif';
 }
 
+.bi {
+    width: 1em;
+    height: 1em;
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
 @import 'stackedCards';
 
 .fc-event.fc-event-start.fc-event-end.fc-bg-event {
