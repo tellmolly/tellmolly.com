@@ -23,9 +23,9 @@ class Tag extends Model
         }
 
         // Convert to RGB value
-        $r = hexdec(substr($color, 0,2));
-        $g = hexdec(substr($color, 2,2));
-        $b = hexdec(substr($color,4,2));
+        $r = hexdec(substr($color, 0, 2));
+        $g = hexdec(substr($color, 2, 2));
+        $b = hexdec(substr($color, 4, 2));
 
         if ($mode === "yiq") {
             return $this->fontColorYIQ($r, $g, $b);
@@ -60,7 +60,7 @@ class Tag extends Model
 
     public function scopeSortBy(Builder $query, string $sortOrder): Builder
     {
-        [$column, $direction] = match($sortOrder){
+        [$column, $direction] = match ($sortOrder) {
             default => ['name', 'asc'],
             'z-a' => ['name', 'desc'],
             'uses-asc' => ['days_count', 'asc'],
@@ -99,7 +99,7 @@ class Tag extends Model
                     $count++;
                 } while (
                     Tag::query()
-                        ->where('user_id', '=', auth()->id())
+                        ->where('user_id', '=', $tag->user_id)
                         ->where('slug', $tag->slug)
                         ->exists()
                 );
