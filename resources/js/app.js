@@ -69,6 +69,27 @@ document.querySelectorAll('form.confirm').forEach((form) => {
 import autosize from "autosize/dist/autosize";
 
 autosize(document.querySelector('#comment'));
+autosize(document.querySelector('#grateful_for'));
+
+const remainingIds = ['grateful_for']
+for (const remainingSpan of remainingIds) {
+    if (document.querySelector('#' + remainingSpan+"-Remaining")) {
+        const parent = document.querySelector('#' + remainingSpan);
+        const span = document.querySelector('#' + remainingSpan+"-Remaining");
+
+        parent.addEventListener('input', function (evt) {
+            updateLimit(span, parent)
+        })
+        updateLimit(span, parent)
+    }
+}
+
+function updateLimit(span, input)
+{
+    const max = input.getAttribute('maxlength');
+    let current = input.value.length;
+    span.textContent = max-current;
+}
 
 /*
  * Year in Review
