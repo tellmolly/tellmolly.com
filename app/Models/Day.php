@@ -42,4 +42,17 @@ class Day extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function resolveRouteBinding($value, $field = null): Model|null
+    {
+        return $this
+            ->where('user_id', auth()->id())
+            ->where($this->getRouteKeyName(), $value)
+            ->firstOrFail();
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'date';
+    }
 }
