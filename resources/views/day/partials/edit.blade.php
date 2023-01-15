@@ -14,7 +14,7 @@
     <div class="row">
     @foreach($categories as $category)
             <div class="col d-flex">
-            <input type="radio" class="btn-check" autocomplete="off" name="category_id" id="category_{{ $loop->index }}"
+            <input type="radio" class="btn-check" autocomplete="off" name="category_id" id="category_{{ $loop->index }}" required
                    {{ old('category_id', $day->category_id) == $category->id ? ' checked ' : '' }} value="{{ $category->id }}">
                 <label for="category_{{ $loop->index }}" style="font-size: xxx-large; flex:1; border-radius: .5rem;" class=" {{ $errors->has('category_id') ? ' is-invalid ' : '' }}
          p-2 mt-2 text-center btn btn-outline-primary
