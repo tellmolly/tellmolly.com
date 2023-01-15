@@ -50,7 +50,7 @@ class YearMonthController extends Controller
                 'textColor' => $day->category->font_color,
                 'start' => $day->date,
                 'display' => 'background',
-                'url' => route('days.edit', $day->id)
+                'url' => route('days.edit', $day)
             ];
         })->groupBy(function ($item) {
             return (int)date_create_from_format('Y-m-d', $item->start)->format('m');

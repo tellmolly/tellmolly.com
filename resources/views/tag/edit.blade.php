@@ -42,7 +42,7 @@
                         <div class="card-header">Days ({{ $tag->days->count() }})</div>
                         <div class="list-group list-group-flush">
                             @foreach($tag->days as $day)
-                                <a href="{{ route('days.edit', $day->id) }}"
+                                <a href="{{ route('days.edit', $day) }}"
                                    class="list-group-item list-group-item-action  d-flex justify-content-between align-items-center"
                                 ><span>{{ $day->date }}, {{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l') }}
                                         @foreach($day->tags as $childTag)
