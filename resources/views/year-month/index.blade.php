@@ -18,7 +18,7 @@
 
             </div>
         </div>
-        <div class="row row-cols-1 row-cols-md-4 g-4 year-month">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 year-month">
             @foreach(range(1, 12) as $month)
                 <div class="col">
                     <div class="card">
