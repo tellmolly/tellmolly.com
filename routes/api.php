@@ -46,3 +46,28 @@ Route::get('days', function (Request $request) {
         return $events;
     });
 });
+
+Route::post('days/exists', function (Request $request) {
+    if ( ! $request->user()) {
+        abort(401);
+    }
+
+    $validated = $request->validate([
+        'date' => ['required', 'date_format:Y-m-d']
+    ]);
+
+    $day = $request->user()->days()
+        ->where('date', $validated['date'])
+        ->first();
+
+    if ($day) {
+        return [
+            'exists' => true,
+            'route' => route('days.create', $day)
+        ];
+    }
+
+    return [
+        'exists' => false
+    ];
+});

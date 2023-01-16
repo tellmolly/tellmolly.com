@@ -10,6 +10,14 @@
     @endif
 </div>
 
+<div class="alert alert-warning d-none" role="alert" id="existing-date-alert">
+    <div class="d-flex align-items-center">
+        <div class="flex-fill">
+            Heads up! There is already an entry for this date. <a href="" id="existing-date-link" class="alert-link">Visit the existing entry </a>.
+        </div>
+    </div>
+</div>
+
 <div class="mb-3">
     <div class="row">
     @foreach($categories as $category)

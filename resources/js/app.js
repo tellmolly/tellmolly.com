@@ -98,6 +98,45 @@ function updateLimit(span, input) {
     span.textContent = max - current;
 }
 
+
+if (document.querySelector("#date")) {
+    const dateInput = document.querySelector("#date");
+    const initialDate = dateInput.value;
+    const isNewDate = document.querySelector('input[name=category_id]:checked') === null;
+
+    dateInput.addEventListener('change', function (evt) {
+        if (!isNewDate && dateInput.value === initialDate) {
+            hideDateInfo();
+            return;
+        }
+
+        checkDate(dateInput.value);
+    })
+
+    if (isNewDate) {
+        checkDate(dateInput.value);
+    }
+
+    function hideDateInfo() {
+        document.querySelector('#existing-date-alert').classList.add('d-none');
+    }
+
+    function checkDate(date) {
+        axios.post('/api/days/exists', {
+            'date': date
+        })
+            .then(data => {
+                if (data.data.exists) {
+                    document.querySelector('#existing-date-link').href = data.data.route;
+                    document.querySelector('#existing-date-alert').classList.remove('d-none');
+                } else {
+                    hideDateInfo()
+                }
+            })
+    }
+}
+
+
 /*
  * Year in Review
  */
