@@ -63,7 +63,7 @@ Route::post('days/exists', function (Request $request) {
     if ($day) {
         return [
             'exists' => true,
-            'route' => route('days.create', $day)
+            'route' => route('days.edit', $day)
         ];
     }
 
