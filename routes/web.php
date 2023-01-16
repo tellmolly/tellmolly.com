@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\TodayController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\YearController;
 use App\Http\Controllers\YearMonthController;
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('days/jump', [DayController::class, 'jump'])->name('days.jump');
     Route::get('days/{day}/previous', [DayController::class, 'previous'])->name('days.previous');
     Route::get('days/{day}/next', [DayController::class, 'next'])->name('days.next');
+    Route::get('today', TodayController::class)->name('days.today');
     Route::get('dashboard', [StatisticController::class, 'index'])->name('statistic.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
