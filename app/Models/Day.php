@@ -19,6 +19,21 @@ class Day extends Model
         'category_id'
     ];
 
+    public function toExport(): array
+    {
+        return [
+            'date' => $this->date,
+            'category' => $this->category->order,
+            'comment' => $this->comment,
+            'grateful_for' => $this->grateful_for,
+            'tags' => $this->tags->map(function (Tag $tag) {
+                return $tag->name;
+            })->implode(', '),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+        ];
+    }
+
     public function scopeSearch(Builder $query, ?string $searchTerm): Builder
     {
         if ( ! $searchTerm) {

@@ -58,6 +58,14 @@ class Tag extends Model
         return '#' . (($yiq > 0.5) ? "000000" : "ffffff");
     }
 
+    public function toExport(): array
+    {
+        return [
+            'name' => $this->name,
+            'color' => $this->color,
+        ];
+    }
+
     public function scopeSortBy(Builder $query, string $sortOrder): Builder
     {
         [$column, $direction] = match ($sortOrder) {
