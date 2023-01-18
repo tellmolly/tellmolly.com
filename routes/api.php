@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 /*
@@ -69,5 +70,26 @@ Route::post('days/exists', function (Request $request) {
 
     return [
         'exists' => false
+    ];
+});
+
+Route::post('tags', function (Request $request) {
+    if ( ! $request->user()) {
+        abort(401);
+    }
+
+    $validated = $request->validate([
+        'name' => ['required', 'string']
+    ]);
+
+    $tag = new Tag();
+    $tag->fill($validated);
+    $tag->color = "#" . substr(dechex(crc32($validated['name'])), 0, 6);
+
+    $tag =  $request->user()->tags()->save($tag);
+
+    return [
+        'name' => $tag->name,
+        'slug' => $tag->slug
     ];
 });

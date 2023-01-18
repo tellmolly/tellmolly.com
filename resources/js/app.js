@@ -136,6 +136,67 @@ if (document.querySelector("#date")) {
     }
 }
 
+if (document.querySelector("#tag-form-button")) {
+    const tagFormButton = document.querySelector("#tag-form-button");
+    const tagFormInput = document.querySelector("#tag-form-input");
+    const tagFormFeedback = document.querySelector("#tag-invalid-feedback");
+    const tagFormInputGroup = document.querySelector("#tag-form-input-group");
+    const tagFormItem = document.querySelector("#tag-form-item");
+
+    tagFormButton.addEventListener('click', function(evt) {
+        createTag(evt)
+    })
+    tagFormInput.addEventListener('keydown', function(evt) {
+        // enter and return
+        if (evt.keyCode === 13 || evt.keyCode === 169) {
+            evt.preventDefault();
+            createTag()
+        }
+    })
+
+    function createTag() {
+        tagFormInput.disabled = true;
+        tagFormButton.disabled = true;
+
+        tagFormFeedback.classList.remove('d-block');
+        tagFormInput.classList.remove('is-invalid')
+        tagFormInputGroup.classList.remove('has-validation')
+
+        const template = `<li class="list-group-item">
+            <input class="form-check-input me-1" name="tag_ids[]" type="checkbox" value="%slug%" id="tag-%slug%" checked>
+            <label class="form-check-label stretched-link" for="tag-%slug%">%name%</label>
+        </li>`;
+
+        axios.post('/api/tags', {
+            'name': tagFormInput.value
+        })
+            .then(data => {
+                const div = document.createElement('div');
+
+                div.innerHTML = template
+                    .replaceAll('\%name\%', data.data.name)
+                    .replaceAll('\%slug\%', data.data.slug)
+                    .trim();
+
+                tagFormItem.insertAdjacentElement('beforebegin', div.firstElementChild);
+
+                tagFormInput.value = "";
+            })
+            .catch(err => {
+                tagFormInputGroup.classList.add('has-validation')
+                tagFormInput.classList.add('is-invalid')
+                tagFormFeedback.textContent = err.response.data.errors.name[0];
+                tagFormFeedback.classList.add('d-block');
+            })
+            .finally(() => {
+                tagFormInput.disabled = false;
+                tagFormButton.disabled = false;
+
+                tagFormInput.focus()
+            })
+    }
+}
+
 
 /*
  * Year in Review

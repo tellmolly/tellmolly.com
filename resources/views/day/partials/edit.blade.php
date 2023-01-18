@@ -47,6 +47,15 @@
             <label class="form-check-label stretched-link" for="tag-{{ $tag->slug }}">{{ $tag->name }}</label>
         </li>
         @endforeach
+        <li class="list-group-item" id="tag-form-item">
+            <div class="input-group" id="tag-form-input-group">
+                <input type="text" class="form-control" id="tag-form-input" placeholder="Enter tag name">
+                <label for="tag-form-input" class="visually-hidden">Tag Name</label>
+                <button class="btn btn-outline-secondary" type="button" id="tag-form-button">Create tag</button>
+            </div>
+            <div class="invalid-feedback" id="tag-invalid-feedback">
+            </div>
+        </li>
     </ul>
     @if($errors->has('tag_ids'))
         <div class="invalid-feedback">
