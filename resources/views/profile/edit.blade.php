@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-header">{{ __('Delete account') }}</div>
+                    <div class="card-header">{{ __('Export data') }}</div>
 
                     <div class="card-body">
                         @include('profile.partials.export-days')
