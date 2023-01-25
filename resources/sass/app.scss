@@ -95,3 +95,12 @@ div.year-month .fc-daygrid-day-events {
 //        border-right-color: transparent !important;
 //    }
 //}
+
+.card-footer {
+    color: #2d2d2d;
+    background-color: #efefef;
+
+    & .link-light {
+        color: #2d2d2d !important;
+    }
+}
