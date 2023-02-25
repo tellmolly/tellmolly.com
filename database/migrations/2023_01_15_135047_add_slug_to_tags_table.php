@@ -8,10 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('tags', function (Blueprint $table) {
             $table->string('slug')->default(null)->nullable();
@@ -22,10 +20,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('tags', function (Blueprint $table) {
             $table->dropIndex('tags_slug_user_id_unique');

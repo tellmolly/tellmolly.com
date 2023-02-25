@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class BaseSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         Category::firstOrCreate([
             'order' => Category::GREAT

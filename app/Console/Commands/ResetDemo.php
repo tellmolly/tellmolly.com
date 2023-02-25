@@ -12,10 +12,10 @@ class ResetDemo extends Command
 
     protected $description = 'Reset the demo to it\'s default state.';
 
-    public function handle(): int
+    public function handle(): void
     {
         if ( ! config('calendar.actions.demo') || ! config('calendar.demo.email')) {
-            return Command::SUCCESS;
+            return;
         }
 
         $demoUser = User::query()
@@ -30,7 +30,7 @@ class ResetDemo extends Command
         if (Carbon::now()->gt(Carbon::parse($demoUser->last_login_at)->addHour())) {
             $this->info('No sign-in since last reset');
 
-            return Command::SUCCESS;
+            return;
         }
 
         $demoUser->tags()->delete();
@@ -41,7 +41,5 @@ class ResetDemo extends Command
             'class' => 'DemoSeeder',
             '--force' => true
         ]);
-
-        return Command::SUCCESS;
     }
 }

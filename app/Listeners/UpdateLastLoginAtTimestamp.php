@@ -8,8 +8,7 @@ use Illuminate\Auth\Events\Registered;
 
 class UpdateLastLoginAtTimestamp
 {
-
-    public function handle(Registered|Login $event)
+    public function handle(Registered|Login $event): void
     {
         if ( ! $event->user instanceof User) {
             return;

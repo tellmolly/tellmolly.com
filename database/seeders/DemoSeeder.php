@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 class DemoSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $demoUser = User::firstOrCreate([
             'email' => config('calendar.demo.email')

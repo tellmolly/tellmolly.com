@@ -12,7 +12,7 @@ class AddSlugToTags extends Command
 
     protected $description = 'Add slugs to existing tags without tags. Slugs were introduced after tags. ';
 
-    public function handle(): int
+    public function handle(): void
     {
         $tagsWithoutSlug = Tag::query()
             ->whereNull('slug');
@@ -22,7 +22,7 @@ class AddSlugToTags extends Command
         if ($affected === 0) {
             $this->info('No tags without slug detected');
 
-            return Command::SUCCESS;
+            return;
         }
 
         $this->info('Generating ' . $affected . ' slugs');
@@ -45,7 +45,5 @@ class AddSlugToTags extends Command
         }
 
         $this->info('Generated ' . $affected . ' slugs');
-
-        return Command::SUCCESS;
     }
 }

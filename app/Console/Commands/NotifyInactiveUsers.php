@@ -14,7 +14,7 @@ class NotifyInactiveUsers extends Command
 
     protected $description = 'Notify users that have a) no entries and no activity in the last 30 days or b) no activity for the last 180 days';
 
-    public function handle(): int
+    public function handle(): void
     {
         $inactiveNewUsers = User::query()
             ->whereNotExists(function ($query) {
@@ -47,7 +47,5 @@ class NotifyInactiveUsers extends Command
         foreach ($inactiveExistingUsers as $user) {
             Mail::to($user)->send(new AccountInactive($user, 180, 30));
         }
-
-        return Command::SUCCESS;
     }
 }

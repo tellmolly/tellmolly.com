@@ -37,7 +37,7 @@ class StatisticController extends Controller
                     JOIN (
                     SELECT @streak := 0, @days_diff := 0) AS vars
                     WHERE user_id = :user_id AND `date` <= DATE(NOW())
-                    ORDER BY `date` DESC) AS t"), [
+                    ORDER BY `date` DESC) AS t")->getValue(DB::connection()->getQueryGrammar()), [
                 'user_id' => auth()->user()->id
             ]),
             'longestStreak' => DB::select(DB::raw("SELECT COUNT(*) max_streak
@@ -52,7 +52,7 @@ class StatisticController extends Controller
         ORDER BY `date`
      ) a
  GROUP BY i
- ORDER BY max_streak DESC LIMIT 1"), [
+ ORDER BY max_streak DESC LIMIT 1")->getValue(DB::connection()->getQueryGrammar()), [
                 'user_id' => auth()->user()->id,
             ]),
             'greatDays' => $request->user()->days()->where('category_id', '=', $great->id)->count(),

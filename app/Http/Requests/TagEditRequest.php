@@ -11,6 +11,9 @@ class TagEditRequest extends FormRequest
         return true;
     }
 
+    /**
+     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     */
     public function rules(): array
     {
         return [
