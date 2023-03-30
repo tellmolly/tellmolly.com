@@ -4,6 +4,7 @@ storage/framework/cache/*
 storage/framework/sessions/*
 storage/framework/views/*
 storage/logs/*
+storage/tmp/*
 
 node_modules
 .docker
