@@ -12,6 +12,7 @@
     <title>{{ $title }}</title>
 
     <meta name="description" content="{{ $description }}">
+    <link rel="manifest" href="{{ url('app.webmanifest') }}" />
 
     <meta property="og:title" content="{{ $title }}"/>
     <meta property="og:type" content="website"/>
