@@ -18,7 +18,8 @@ class TagEditRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'color' => ['required', 'size:7', 'starts_with:#']
+            'color' => ['required', 'size:7', 'starts_with:#'],
+            'archive' => ['sometimes', 'required', 'boolean']
         ];
     }
 }

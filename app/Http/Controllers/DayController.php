@@ -35,7 +35,7 @@ class DayController extends Controller
         return view('day.create', [
             'day' => new Day(['date' => $validated['initial'] ?? date('Y-m-d')]),
             'categories' => Category::orderBy('order')->get(),
-            'tags' => $request->user()->tags
+            'tags' => $request->user()->tags()->whereNull('archived_at')->get()
         ]);
     }
 

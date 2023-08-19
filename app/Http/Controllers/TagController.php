@@ -55,6 +55,7 @@ class TagController extends Controller
     public function update(TagEditRequest $request, Tag $tag): RedirectResponse
     {
         $tag->fill($request->validated());
+        $tag->archived_at = $request->has('archive') ? now() : null;
         $tag->save();
 
         return redirect()->route('tags.index');
