@@ -71,6 +71,7 @@
                                 </button>
                             </div>
                         </div>
+                        @include('layouts.partials.honeypot')
                     </form>
                 </div>
             </div>

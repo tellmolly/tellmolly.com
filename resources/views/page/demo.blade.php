@@ -13,6 +13,7 @@
                 <form method="post" action="{{ route('demo.login') }}">
                     @csrf
                     <button type="submit" class="btn btn-primary">Try Tell Molly</button>
+                    @include('layouts.partials.honeypot')
                 </form>
             </div>
         </div>
