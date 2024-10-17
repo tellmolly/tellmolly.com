@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TagEditRequest;
 use App\Models\Tag;
+use App\Services\TagService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -17,15 +18,7 @@ class TagController extends Controller
 
     public function index(Request $request): View
     {
-        $sortOrder = $request->query('sort', 'a-z');
-
-        return view('tag.index', [
-            'tags' => $request->user()->tags()->withCount('days')
-                ->sortBy($sortOrder)
-                ->sortBy("name", 'asc')
-                ->paginate()->withQueryString(),
-            'sortOrder' => $sortOrder
-        ]);
+        return view('tag.index', (new TagService)->index($request));
     }
 
     public function create(): View
@@ -37,10 +30,7 @@ class TagController extends Controller
 
     public function store(TagEditRequest $request): RedirectResponse
     {
-        $tag = new Tag();
-        $tag->fill($request->validated());
-
-        $request->user()->tags()->save($tag);
+        (new TagService)->store($request);
 
         return redirect()->route('tags.index');
     }
@@ -54,16 +44,14 @@ class TagController extends Controller
 
     public function update(TagEditRequest $request, Tag $tag): RedirectResponse
     {
-        $tag->fill($request->validated());
-        $tag->archived_at = $request->has('archive') ? now() : null;
-        $tag->save();
+        (new TagService)->update($request, $tag);
 
         return redirect()->route('tags.index');
     }
 
     public function destroy(Tag $tag): RedirectResponse
     {
-        $tag->delete();
+        (new TagService)->destroy($tag);
 
         return redirect()->route('tags.index');
     }
