@@ -13,7 +13,8 @@ class RegisterController extends Controller
         $user = (new RegisterService)->register($request);
 
         return [
-            'name' => $user->name
+            'name' => $user->name,
+            'token' => $user->createToken('App')->plainTextToken
         ];
     }
 

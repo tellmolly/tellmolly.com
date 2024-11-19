@@ -13,7 +13,8 @@ class LoginController extends Controller
         $user = (new LoginService)->login($request);
 
         return [
-            'name' => $user->name
+            'name' => $user->name,
+            'token' => $user->createToken('App')->plainTextToken
         ];
     }
 }

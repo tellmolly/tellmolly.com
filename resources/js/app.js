@@ -21,7 +21,7 @@ if (document.getElementById("calendar")) {
         navLinks: false, // can click day/week names to navigate views
         editable: false,
         dayMaxEventRows: 6, // allow "more" link when too many events
-        events: '/api/days',
+        events: '/stateful-api/days',
         themeSystem: 'bootstrap5',
         firstDay: 1, // monday
         plugins: [bootstrapPlugin, dayGridPlugin, interactionPlugin],
@@ -122,7 +122,7 @@ if (document.querySelector("#date")) {
     }
 
     function checkDate(date) {
-        axios.post('/api/days/exists', {
+        axios.post('/stateful-api/days/exists', {
             'date': date
         })
             .then(data => {
@@ -167,7 +167,7 @@ if (document.querySelector("#tag-form-button")) {
             <label class="form-check-label stretched-link" for="tag-%slug%">%name%</label>
         </li>`;
 
-        axios.post('/api/tags', {
+        axios.post('/stateful-api/tags', {
             'name': tagFormInput.value
         })
             .then(data => {
