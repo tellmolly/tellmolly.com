@@ -43,7 +43,7 @@
     <ul class="list-group" id="tag_ids" >
         @foreach($tags as $tag)
         <li class="list-group-item {{ $errors->has('tag_ids') ? ' is-invalid ' : '' }}">
-            <input class="form-check-input me-1" name="tag_ids[]" type="checkbox" value="{{ $tag->slug }}" id="tag-{{ $tag->slug }}" {{ in_array($tag->slug, old('tag_ids', $day->tags()->pluck("slug")->values()->toArray())) ? ' checked ' : '' }}>
+            <input class="form-check-input me-1" name="tag_ids[]" type="checkbox" value="{{ $tag->slug }}" id="tag-{{ $tag->slug }}" {{ in_array($tag->slug, old('tag_ids', $selectedTags)) ? ' checked ' : '' }}>
             <label class="form-check-label stretched-link" for="tag-{{ $tag->slug }}">{{ $tag->name }}</label>
         </li>
         @endforeach

@@ -28,7 +28,8 @@ class DayService
         return [
             'day' => new Day(['date' => $validated['initial'] ?? date('Y-m-d')]),
             'categories' => Category::orderBy('order')->get(),
-            'tags' => $request->user()->tags()->whereNull('archived_at')->get()
+            'tags' => $request->user()->tags()->whereNull('archived_at')->get(),
+            'selectedTags' => []
         ];
     }
 
@@ -53,7 +54,8 @@ class DayService
         return [
             'day' => $day,
             'categories' => Category::orderBy('order')->get(),
-            'tags' => $request->user()->tags
+            'tags' => $request->user()->tags,
+            'selectedTags' => $day->tags()->pluck("slug")->values()->toArray()
         ];
     }
 
