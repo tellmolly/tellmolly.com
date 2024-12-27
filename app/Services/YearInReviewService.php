@@ -28,11 +28,11 @@ class YearInReviewService
         $bad = $categories->firstWhere('order', '=', Category::BAD);
         $worst = $categories->firstWhere('order', '=', Category::WORST);
 
-        $tagQuery = DB::select(DB::raw("SELECT tag_id, COUNT(*) amount
+        $tagQuery = DB::select("SELECT tag_id, COUNT(*) amount
 FROM day_tag
 WHERE day_id IN (SELECT id FROM days WHERE user_id = :user_id AND YEAR(`date`) = :year)
 GROUP BY tag_id
-ORDER BY amount desc"), [
+ORDER BY amount desc", [
             'user_id' => auth()->user()->id,
             'year' => $year
         ]);
@@ -75,7 +75,7 @@ ORDER BY amount desc"), [
             'normalDays' => $countQueries[3]->amount,
             'badDays' => $countQueries[4]->amount,
             'worstDays' => $countQueries[5]->amount,
-            'longestGreatDayStreak' => DB::select(DB::raw("SELECT COUNT(*) max_streak
+            'longestGreatDayStreak' => DB::select("SELECT COUNT(*) max_streak
   FROM
      ( SELECT x.*
             , CASE WHEN @prev = `date` - INTERVAL 1 DAY THEN @i:=@i ELSE @i:=@i+1 END i
@@ -87,17 +87,17 @@ ORDER BY amount desc"), [
         ORDER BY `date`
      ) a
  GROUP BY i
- ORDER BY max_streak DESC LIMIT 1"), [
+ ORDER BY max_streak DESC LIMIT 1", [
                     'user_id' => auth()->user()->id,
                     'category_id' => $great->id,
                     'year' => $year
                 ])[0]->max_streak ?? 0,
-            'bestMonth' => DB::select(DB::raw("SELECT count(*) as amount_days, category_id, MONTHNAME(`date`) as best_month
+            'bestMonth' => DB::select("SELECT count(*) as amount_days, category_id, MONTHNAME(`date`) as best_month
   FROM days where year(`date`) = :year and user_id = :user_id
 
  GROUP BY date_format(`date`, '%m'), category_id, best_month
  order by category_id asc, amount_days desc
-  LIMIT 1"), [
+  LIMIT 1", [
                     'user_id' => auth()->user()->id,
                     'year' => $year
                 ])[0]->best_month ?? '-',
