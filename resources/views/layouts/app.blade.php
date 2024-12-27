@@ -65,7 +65,7 @@
                                 <a class="nav-link {{ request()->route()->named('year-month.index') ? 'active' : '' }}" href="{{ route('year-month.index') }}">{{ __('Year in Months') }}</a>
                             </li>
 
-                            @if(auth()->user()->created_at->year < date('Y') && \Carbon\Carbon::now()->lessThan(date('15-01-Y')))
+                            @if(auth()->user()->created_at->year < date('Y') && (\Carbon\Carbon::now()->lessThan(date('15-01-Y'))|| \Carbon\Carbon::now()->greaterThan(date('24-12-Y'))))
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->route()->named('year-in-review.show') ? 'active' : '' }}" href="{{ route('year-in-review.show') }}">{{ __('Year in Review') }}</a>
                             </li>
