@@ -1,6 +1,6 @@
 <?php
 
 return [
-    'enabled' => true,
+    'enabled' => env('HONEYPOT_ENABLED', true),
     'field_name' => 'username',
 ];
