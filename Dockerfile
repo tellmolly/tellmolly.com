@@ -9,7 +9,10 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 
 RUN apt-get update -y && apt-get install -y sendmail unzip
 
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+# Node 24. Was 18, which no longer builds: the pinned Vite refuses to run
+# ("Vite requires Node.js version 20.19+ or 22.12+"), and chokidar 5 wants >=20.19.
+# Only surfaces in a clean image build -- local dev uses the host's newer Node.
+RUN curl -sL https://deb.nodesource.com/setup_24.x | bash - \
     && apt-get install -y nodejs
 
 ARG HOST_USER_ID=1000
