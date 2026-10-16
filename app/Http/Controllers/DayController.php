@@ -29,7 +29,14 @@ class DayController extends Controller
 
     public function store(DayStoreRequest $request): RedirectResponse
     {
-        (new DayService)->store($request);
+        $day = (new DayService)->store($request);
+
+        // Logged with one tap from the dashboard: offer to add the details.
+        if ($request->boolean('quick')) {
+            return redirect()->route('days.edit', $day)->with([
+                'message' => 'Saved! Want to add a comment or what you are grateful for?'
+            ]);
+        }
 
         return redirect()->route('days.index');
     }

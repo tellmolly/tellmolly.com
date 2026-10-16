@@ -10,7 +10,7 @@ class YearService
     public function index(Request $request, $year = null): array
     {
         if ($year === null) {
-            $year = config('calendar.year');
+            $year = now()->year;
         }
 
         if (intval($year) === 0) {

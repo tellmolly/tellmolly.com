@@ -9,6 +9,51 @@
             @include('home.partials.menu')
 
             <div class="col-md-8">
+                @unless($today)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">How was today?</h5>
+                            <form method="POST" action="{{ route('days.store') }}" class="d-flex gap-2">
+                                @csrf
+                                <input type="hidden" name="date" value="{{ now()->format('Y-m-d') }}">
+                                <input type="hidden" name="quick" value="1">
+                                @foreach($categories as $category)
+                                    <button type="submit" name="category_id" value="{{ $category->id }}" class="btn btn-outline-primary flex-fill p-2" style="font-size: xx-large; border-radius: .5rem;">{!! $category->name !!}</button>
+                                @endforeach
+                            </form>
+                        </div>
+                    </div>
+                @endunless
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        @if($goodDay)
+                            <p class="card-text text-muted mb-1">Remember this day?</p>
+                            <h5 class="card-title">
+                                <a href="{{ route('days.edit', $goodDay) }}" style="text-decoration: none">
+                                    {!! $goodDay->category->name !!} {{ DateTime::createFromFormat('Y-m-d', $goodDay->date)->format('l, j F Y') }}
+                                </a>
+                            </h5>
+                            <p class="card-subtitle text-muted mb-2">{{ \Carbon\Carbon::parse($goodDay->date)->diffForHumans() }}</p>
+                            @if($goodDay->grateful_for)
+                                <p class="card-text">You were grateful for: {{ $goodDay->grateful_for }}</p>
+                            @elseif($goodDay->comment)
+                                <p class="card-text">{{ Str::limit($goodDay->comment, 200) }}</p>
+                            @endif
+                            @if($goodDay->tags->isNotEmpty())
+                                <p class="card-text">
+                                    @foreach($goodDay->tags as $tag)
+                                        <span class="badge" style="background-color: {{ $tag->color }}; color: {{ $tag->fontColor() }}">{{ $tag->name }}</span>
+                                    @endforeach
+                                </p>
+                            @endif
+                            <a href="{{ route('statistic.index') }}" class="card-link">Show me another</a>
+                        @else
+                            <p class="card-text text-muted">Your great and good days will show up here as memories once they are a month old.</p>
+                        @endif
+                    </div>
+                </div>
+
                 <div class="row row-cols-2 g-4 mb-3">
                     <div class="col">
                         <div class="card">
@@ -27,6 +72,10 @@
                         </div>
                     </div>
                 </div>
+
+                @if($streakMessage)
+                    <div class="alert alert-success mb-3" role="status">{{ $streakMessage }}</div>
+                @endif
 
                 <div class="row row-cols-2 g-4 mb-3">
                     <div class="col">
@@ -63,60 +112,31 @@
                     </div>
                 </div>
 
-                <div class="row row-cols-2 g-4 mb-3">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $greatDays }}</h5>
-                                <p class="card-text">Great days (overall)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $greatDays1Month }}</h5>
-                                <p class="card-text">Great days (last 30 days)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-cols-2 g-4 mb-3">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $goodDays }}</h5>
-                                <p class="card-text">Good days (overall)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $goodDays1Month }}</h5>
-                                <p class="card-text">Good days (last 30 days)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row row-cols-2 g-4 mb-3">
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $averageDays }}</h5>
-                                <p class="card-text">Average days (overall)</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $averageDays1Month }}</h5>
-                                <p class="card-text">Average days (last 30 days)</p>
-                            </div>
-                        </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Your good days</h5>
+                        <table class="table mb-0 align-middle">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><span class="visually-hidden">Mood</span></th>
+                                    <th scope="col" class="text-end">Last 30 days</th>
+                                    <th scope="col" class="text-end">Overall</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach([
+                                    [\App\Models\Category::GREAT, 'Great', $greatDays1Month, $greatDays],
+                                    [\App\Models\Category::GOOD, 'Good', $goodDays1Month, $goodDays],
+                                    [\App\Models\Category::AVERAGE, 'Average', $averageDays1Month, $averageDays],
+                                ] as [$order, $label, $lastMonth, $overall])
+                                    <tr>
+                                        <th scope="row" class="fw-normal">{!! $categories->firstWhere('order', $order)?->name !!} {{ $label }}</th>
+                                        <td class="text-end">{{ $lastMonth }}</td>
+                                        <td class="text-end">{{ $overall }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

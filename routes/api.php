@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('days/{day}/next', [\App\Http\Controllers\API\DayController::class, 'next']);
     Route::get('today', [\App\Http\Controllers\API\DayController::class, 'today']);
     Route::get('dashboard', [\App\Http\Controllers\API\StatisticController::class, 'index']);
+    Route::get('gratitude', [\App\Http\Controllers\API\GratitudeController::class, 'index']);
 
     Route::get('/profile', [\App\Http\Controllers\API\ProfileController::class, 'edit']);
     Route::patch('/profile', [\App\Http\Controllers\API\ProfileController::class, 'update']);

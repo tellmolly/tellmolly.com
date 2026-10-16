@@ -3,6 +3,7 @@
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\DayController;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\GratitudeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatisticController;
@@ -67,6 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('days/{day}/next', [DayController::class, 'next'])->name('days.next');
     Route::get('today', TodayController::class)->name('days.today');
     Route::get('dashboard', [StatisticController::class, 'index'])->name('statistic.index');
+    Route::get('gratitude', [GratitudeController::class, 'index'])->name('gratitude.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

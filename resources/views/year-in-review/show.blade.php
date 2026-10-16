@@ -32,7 +32,9 @@
                                         <li>@if($worstDays > 0) Oh no! @endif You had {{ $worstDays }} really bad {{ Str::plural('day', $worstDays) }}! @if($worstDays > 0) Don't let it get you down! @endif</li>
 
                                         <li>Your longest great day streak was {{ $longestGreatDayStreak }} {{ Str::plural('day', $longestGreatDayStreak) }} long!</li>
+                                        @if($bestMonth !== '-')
                                         <li>You had the most great days in {{ $bestMonth }}!</li>
+                                        @endif
                                         <li>You tracked a total of {{ $daysTracked }} {{ Str::plural('day', $daysTracked) }} in {{ $year }}!</li>
                                         <li>You used a total of {{ $differentTagsUsed }} tags for a total of {{ $overallTagUsage }} {{ Str::plural('usage', $overallTagUsage) }}!</li>
                                         @if($mostUsedTag)

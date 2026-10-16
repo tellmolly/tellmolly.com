@@ -40,7 +40,14 @@ class Day extends Model
             return $query;
         }
 
-        return $query->where('comment', 'LIKE', '%' . $searchTerm . '%');
+        $term = '%' . $searchTerm . '%';
+
+        // Grouped so the ORs can't escape the user scope the query starts with.
+        return $query->where(function (Builder $query) use ($term) {
+            $query->where('comment', 'LIKE', $term)
+                ->orWhere('grateful_for', 'LIKE', $term)
+                ->orWhereHas('tags', fn(Builder $query) => $query->where('name', 'LIKE', $term));
+        });
     }
 
     public function scopeYear(Builder $query, int $year): Builder

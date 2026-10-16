@@ -9,6 +9,9 @@
         <a href="{{ route('days.index') }}" class="list-group-item list-group-item-action {{ request()->route()->named('days.index') ? 'active' : '' }}">
             List days
         </a>
+        <a href="{{ route('gratitude.index') }}" class="list-group-item list-group-item-action {{ request()->route()->named('gratitude.index') ? 'active' : '' }}">
+            Gratitude jar
+        </a>
         <a href="{{ route('tags.create') }}" class="list-group-item list-group-item-action {{ request()->route()->named('tags.create') ? 'active' : '' }}">
             New tag
         </a>
