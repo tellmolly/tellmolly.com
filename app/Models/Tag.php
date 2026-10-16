@@ -58,6 +58,14 @@ class Tag extends Model
         return '#' . (($yiq > 0.5) ? "000000" : "ffffff");
     }
 
+    /**
+     * A stable color for a tag created without one, always a full #rrggbb.
+     */
+    public static function colorFor(string $name): string
+    {
+        return '#' . str_pad(substr(dechex(crc32($name)), 0, 6), 6, '0', STR_PAD_LEFT);
+    }
+
     public function toExport(): array
     {
         return [

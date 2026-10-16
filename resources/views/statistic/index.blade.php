@@ -54,6 +54,22 @@
                     </div>
                 </div>
 
+                @if($tagInsights)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">What your good days have in common</h5>
+                            <ul class="list-unstyled mb-0">
+                                @foreach($tagInsights as $insight)
+                                    <li class="{{ $loop->last ? '' : 'mb-2' }}">
+                                        <span class="badge" style="background-color: {{ $insight['color'] }}; color: {{ (new \App\Models\Tag(['color' => $insight['color']]))->fontColor() }}">{{ $insight['name'] }}</span>
+                                        {{ $insight['good'] }} of {{ $insight['total'] }} days were good or great
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row row-cols-2 g-4 mb-3">
                     <div class="col">
                         <div class="card">

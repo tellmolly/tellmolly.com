@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Day;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatisticService
 {
@@ -32,6 +33,7 @@ class StatisticService
             'today' => $request->user()->days()->with('category')->where('date', '=', $now->format('Y-m-d'))->first(),
             'categories' => Category::orderBy('order')->get(),
             'goodDay' => $this->randomGoodDay($request, [$great->id, $good->id], $now),
+            'tagInsights' => $this->tagInsights($request, [$great->id, $good->id]),
             'lastWeek' => $request->user()->days()->with('category')->where('date', '=', $now->subWeek()->format('Y-m-d'))->first(),
             'onThisDay' => $request->user()->days()->with('category')->where('date', '=', $now->subYear()->format('Y-m-d'))->first(),
             // Same shape the old raw streak queries returned, which the API exposes.
@@ -45,6 +47,37 @@ class StatisticService
             'goodDays1Month' => $request->user()->days()->where('category_id', '=', $good->id)->where('date', '>', $now->subDays(30)->format('Y-m-d'))->count(),
             'averageDays1Month' => $request->user()->days()->where('category_id', '=', $average->id)->where('date', '>', $now->subDays(30)->format('Y-m-d'))->count(),
         ];
+    }
+
+    /**
+     * Tags that tend to come with good days, e.g. "Hiking: 9 of 10 days were
+     * good or great". Only ever positive: tags that mostly come with bad days
+     * are simply not mentioned.
+     *
+     * @return array<int, array{name: string, color: string, good: int, total: int}>
+     */
+    private function tagInsights(Request $request, array $goodCategoryIds): array
+    {
+        $minimumDays = 5;
+        $minimumShare = 0.6;
+
+        return DB::table('day_tag')
+            ->join('days', 'days.id', '=', 'day_tag.day_id')
+            ->join('tags', 'tags.id', '=', 'day_tag.tag_id')
+            ->where('days.user_id', '=', $request->user()->id)
+            ->whereNull('tags.archived_at')
+            ->groupBy('tags.id', 'tags.name', 'tags.color')
+            ->havingRaw('COUNT(*) >= ?', [$minimumDays])
+            ->select('tags.name', 'tags.color')
+            ->selectRaw('COUNT(*) as total')
+            ->selectRaw('SUM(CASE WHEN days.category_id IN (' . implode(',', array_fill(0, count($goodCategoryIds), '?')) . ') THEN 1 ELSE 0 END) as good', $goodCategoryIds)
+            ->get()
+            ->map(fn($row) => ['name' => $row->name, 'color' => $row->color, 'good' => (int) $row->good, 'total' => (int) $row->total])
+            ->filter(fn($tag) => $tag['good'] / $tag['total'] >= $minimumShare)
+            ->sortBy([fn($a, $b) => $b['good'] / $b['total'] <=> $a['good'] / $a['total'], fn($a, $b) => $b['total'] <=> $a['total']])
+            ->take(3)
+            ->values()
+            ->all();
     }
 
     /**

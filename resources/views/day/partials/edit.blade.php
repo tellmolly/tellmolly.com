@@ -66,7 +66,8 @@
 
 <div class="mb-3">
     <label for="comment" class="form-label">Comment</label>
-    <textarea class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="comment" name="comment" placeholder="Enter comment">{{ old('comment', $day->comment) }}</textarea>
+    <textarea class="form-control {{ $errors->has('comment') ? ' is-invalid ' : '' }}" id="comment" name="comment" placeholder="Enter comment" maxlength="{{ \App\Models\Day::COMMENT_MAX }}" aria-describedby="comment-Help">{{ old('comment', $day->comment) }}</textarea>
+    <div id="comment-Help" class="form-text">Characters remaining: <span id="comment-Remaining"></span></div>
     @if($errors->has('comment'))
         <div class="invalid-feedback">
             {{ $errors->first('comment') }}
@@ -76,7 +77,7 @@
 
 <div class="mb-3">
     <label for="grateful_for" class="form-label">I am grateful for</label>
-    <textarea class="form-control {{ $errors->has('grateful_for') ? ' is-invalid ' : '' }}" id="grateful_for" name="grateful_for" placeholder="Today I am grateful for..."  maxlength="255"
+    <textarea class="form-control {{ $errors->has('grateful_for') ? ' is-invalid ' : '' }}" id="grateful_for" name="grateful_for" placeholder="{{ $day->gratitudePrompt() }}" maxlength="{{ \App\Models\Day::GRATEFUL_FOR_MAX }}" aria-describedby="grateful_for-Help"
     >{{ old('grateful_for', $day->grateful_for) }}</textarea>
     <div id="grateful_for-Help" class="form-text">Characters remaining: <span id="grateful_for-Remaining"></span></div>
     @if($errors->has('grateful_for'))

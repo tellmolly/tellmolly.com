@@ -17,6 +17,7 @@ class NotifyInactiveUsers extends Command
     public function handle(): void
     {
         $inactiveNewUsers = User::query()
+            ->whereNotNull('email_verified_at')
             ->whereNotExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('days')
@@ -33,6 +34,7 @@ class NotifyInactiveUsers extends Command
         }
 
         $inactiveExistingUsers = User::query()
+            ->whereNotNull('email_verified_at')
             ->whereExists(function ($query) {
                 $query->select(DB::raw(1))
                     ->from('days')

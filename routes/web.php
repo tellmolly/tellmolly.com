@@ -56,36 +56,20 @@ Route::middleware('guest')->group(function () {
 
     if (config('calendar.actions.register')) {
         Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
-        Route::post('register', [RegisteredUserController::class, 'store'])->middleware('honeypot');
+        Route::post('register', [RegisteredUserController::class, 'store'])->middleware(['honeypot:timed', 'throttle:registrations']);
     }
 
     if (config('calendar.actions.reset')) {
         Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])->name('password.request');
-        Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email')->middleware('honeypot');
+        Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])->name('password.email')->middleware('honeypot:timed');
         Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])->name('password.reset');
         Route::post('reset-password', [NewPasswordController::class, 'store'])->name('password.store');
     }
 });
 
 Route::group(['middleware' => ['auth', 'track']], function () {
-    Route::resource('tags', TagController::class)->except(['show']);
-    Route::resource('days', DayController::class)->except(['show']);
-    Route::post('days/jump', [DayController::class, 'jump'])->name('days.jump');
-    Route::get('days/{day}/previous', [DayController::class, 'previous'])->name('days.previous');
-    Route::get('days/{day}/next', [DayController::class, 'next'])->name('days.next');
-    Route::get('today', TodayController::class)->name('days.today');
-    Route::get('dashboard', [StatisticController::class, 'index'])->name('statistic.index');
-    Route::get('gratitude', [GratitudeController::class, 'index'])->name('gratitude.index');
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::patch('/profile/reminders', [ReminderSettingsController::class, 'update'])->name('profile.reminders.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-    Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
-    Route::get('year/months/{year?}', [YearMonthController::class, 'index'])->name('year-month.index');
-    Route::get('year/{year?}', [YearController::class, 'index'])->name('year.index');
-
+    // Available before the email address is confirmed: confirming it, and
+    // looking after the account itself.
     Route::get('verify-email', EmailVerificationPromptController::class)->name('verification.notice');
     Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
         ->middleware(['signed', 'throttle:6,1'])
@@ -95,12 +79,36 @@ Route::group(['middleware' => ['auth', 'track']], function () {
         ->middleware('throttle:6,1')
         ->name('verification.send');
 
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/logout-other-devices', [ProfileController::class, 'logoutOtherDevices'])->name('profile.logout-other-devices');
+
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])->name('password.confirm');
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    Route::get('year-in-review', [\App\Http\Controllers\YearInReviewController::class, 'show'])->name('year-in-review.show');
+    // Everything else needs a confirmed email address.
+    Route::middleware('verified')->group(function () {
+        Route::resource('tags', TagController::class)->except(['show']);
+        Route::resource('days', DayController::class)->except(['show']);
+        Route::post('days/jump', [DayController::class, 'jump'])->name('days.jump');
+        Route::get('days/{day}/previous', [DayController::class, 'previous'])->name('days.previous');
+        Route::get('days/{day}/next', [DayController::class, 'next'])->name('days.next');
+        Route::get('today', TodayController::class)->name('days.today');
+        Route::get('dashboard', [StatisticController::class, 'index'])->name('statistic.index');
+        Route::get('gratitude', [GratitudeController::class, 'index'])->name('gratitude.index');
 
-    Route::post('export', \App\Http\Controllers\ExportController::class)->name('export');
+        Route::patch('/profile/reminders', [ReminderSettingsController::class, 'update'])->name('profile.reminders.update');
+
+        Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');
+        Route::get('year/months/{year?}', [YearMonthController::class, 'index'])->name('year-month.index');
+        Route::get('year/{year?}', [YearController::class, 'index'])->name('year.index');
+
+        Route::get('year-in-review', [\App\Http\Controllers\YearInReviewController::class, 'show'])->name('year-in-review.show');
+
+        Route::post('export', \App\Http\Controllers\ExportController::class)->name('export');
+        Route::post('import', \App\Http\Controllers\ImportController::class)->name('import');
+    });
 });

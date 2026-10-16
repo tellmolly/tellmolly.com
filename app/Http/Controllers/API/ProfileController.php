@@ -26,6 +26,19 @@ class ProfileController extends Controller
         return ['status' => 'profile-updated'];
     }
 
+    public function logoutOtherDevices(Request $request): array
+    {
+        try {
+            (new ProfileService)->logoutOtherDevices($request);
+        } catch (RuntimeException) {
+            abort(400);
+        }
+
+        return [
+            'status' => 'success'
+        ];
+    }
+
     public function destroy(Request $request): array
     {
         try {

@@ -20,6 +20,10 @@ class Kernel extends ConsoleKernel
             ->dailyAt('14:00')
             ->withoutOverlapping();
 
+        $schedule->command('tm:delete-unverified-users')
+            ->dailyAt('14:30')
+            ->withoutOverlapping();
+
         $schedule->command('tm:send-daily-reminders')
             ->everyFiveMinutes()
             ->withoutOverlapping();

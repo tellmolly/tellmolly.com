@@ -3,12 +3,16 @@
 namespace App\Http\Requests;
 
 use App\Models\Category;
+use App\Http\Requests\Concerns\NormalizesDayText;
+use App\Models\Day;
 use App\Models\Tag;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class DayStoreRequest extends FormRequest
 {
+    use NormalizesDayText;
+
     public function authorize(): bool
     {
         return true;
@@ -26,8 +30,8 @@ class DayStoreRequest extends FormRequest
                 Rule::unique('days', 'date')
                     ->where(fn($query) => $query->where('user_id', $this->user()->id))
             ],
-            'comment' => ['nullable'],
-            'grateful_for' => ['nullable', 'string', 'max:255'],
+            'comment' => ['nullable', 'string', 'max:' . Day::COMMENT_MAX],
+            'grateful_for' => ['nullable', 'string', 'max:' . Day::GRATEFUL_FOR_MAX],
             'category_id' => [
                 'required',
                 Rule::exists(Category::class, 'id')

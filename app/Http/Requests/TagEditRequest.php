@@ -17,8 +17,8 @@ class TagEditRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required'],
-            'color' => ['required', 'size:7', 'starts_with:#'],
+            'name' => ['required', 'string', 'max:255'],
+            'color' => ['required', 'regex:/^#[0-9a-fA-F]{6}$/'],
             'archive' => ['sometimes', 'required', 'boolean']
         ];
     }

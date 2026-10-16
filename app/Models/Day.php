@@ -12,12 +12,32 @@ class Day extends Model
 {
     use HasFactory;
 
+    /**
+     * Longest comment, in characters. The column is a TEXT (65,535 bytes) and a
+     * character takes up to 4 bytes in utf8mb4, so this always fits.
+     */
+    public const COMMENT_MAX = 16000;
+
+    /** Matches the VARCHAR(255) column. */
+    public const GRATEFUL_FOR_MAX = 255;
+
     protected $fillable = [
         'date',
         'comment',
         'grateful_for',
         'category_id'
     ];
+
+    /**
+     * A gratitude prompt for this day. Chosen from the date, so it stays the
+     * same while the day is being edited and changes from one day to the next.
+     */
+    public function gratitudePrompt(): string
+    {
+        $prompts = config('gratitude.prompts');
+
+        return $prompts[crc32((string) $this->date) % count($prompts)];
+    }
 
     public function toExport(): array
     {

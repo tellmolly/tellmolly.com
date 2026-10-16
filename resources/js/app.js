@@ -79,7 +79,7 @@ import autosize from "autosize/dist/autosize";
 autosize(document.querySelector('#comment'));
 autosize(document.querySelector('#grateful_for'));
 
-const remainingIds = ['grateful_for']
+const remainingIds = ['comment', 'grateful_for']
 for (const remainingSpan of remainingIds) {
     if (document.querySelector('#' + remainingSpan + "-Remaining")) {
         const parent = document.querySelector('#' + remainingSpan);
@@ -162,23 +162,30 @@ if (document.querySelector("#tag-form-button")) {
         tagFormInput.classList.remove('is-invalid')
         tagFormInputGroup.classList.remove('has-validation')
 
-        const template = `<li class="list-group-item">
-            <input class="form-check-input me-1" name="tag_ids[]" type="checkbox" value="%slug%" id="tag-%slug%" checked>
-            <label class="form-check-label stretched-link" for="tag-%slug%">%name%</label>
-        </li>`;
-
         axios.post('/stateful-api/tags', {
             'name': tagFormInput.value
         })
             .then(data => {
-                const div = document.createElement('div');
+                // Built from nodes, not an HTML string, so a tag name can never
+                // be interpreted as markup.
+                const item = document.createElement('li');
+                item.className = 'list-group-item';
 
-                div.innerHTML = template
-                    .replaceAll('\%name\%', data.data.name)
-                    .replaceAll('\%slug\%', data.data.slug)
-                    .trim();
+                const checkbox = document.createElement('input');
+                checkbox.className = 'form-check-input me-1';
+                checkbox.type = 'checkbox';
+                checkbox.name = 'tag_ids[]';
+                checkbox.value = data.data.slug;
+                checkbox.id = 'tag-' + data.data.slug;
+                checkbox.checked = true;
 
-                tagFormItem.insertAdjacentElement('beforebegin', div.firstElementChild);
+                const label = document.createElement('label');
+                label.className = 'form-check-label stretched-link';
+                label.htmlFor = checkbox.id;
+                label.textContent = data.data.name;
+
+                item.append(checkbox, ' ', label);
+                tagFormItem.insertAdjacentElement('beforebegin', item);
 
                 tagFormInput.value = "";
             })

@@ -42,6 +42,22 @@
                 </div>
 
                 <div class="card mb-3">
+                    <div class="card-header">{{ __('Import data') }}</div>
+
+                    <div class="card-body">
+                        @include('profile.partials.import-days')
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">{{ __('Signed-in devices') }}</div>
+
+                    <div class="card-body">
+                        @include('profile.partials.logout-other-devices-form')
+                    </div>
+                </div>
+
+                <div class="card mb-3">
                     <div class="card-header">{{ __('Delete account') }}</div>
 
                     <div class="card-body">

@@ -18,32 +18,50 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::post('login', [\App\Http\Controllers\API\LoginController::class, 'store']);
-    Route::post('register', [\App\Http\Controllers\API\RegisterController::class, 'store']);
-    Route::post('forgot-password', [\App\Http\Controllers\API\ForgotPasswordController::class, 'store']);
+
+    // Same switch as the website. The API has no CSRF token or honeypot, so it
+    // relies on the rate limit, email confirmation and the cleanup of
+    // unconfirmed accounts after a week.
+    if (config('calendar.actions.register')) {
+        Route::post('register', [\App\Http\Controllers\API\RegisterController::class, 'store'])->middleware('throttle:registrations');
+    }
+
+    if (config('calendar.actions.reset')) {
+        Route::post('forgot-password', [\App\Http\Controllers\API\ForgotPasswordController::class, 'store'])->middleware('throttle:6,1');
+    }
 });
 
 Route::group(['middleware' => ['auth:sanctum', 'track']], function () {
-    Route::resource('tags', \App\Http\Controllers\API\TagController::class, ['as' => 'api'])->except(['show', 'create']);
-    Route::get('days/calendar', [\App\Http\Controllers\API\QuickDayController::class, 'index']);
-    Route::post('days/exists', [\App\Http\Controllers\API\QuickDayController::class, 'exists']);
-    Route::resource('days', \App\Http\Controllers\API\DayController::class, ['as' => 'api'])->except(['show']);
-    Route::post('days/jump', [\App\Http\Controllers\API\DayController::class, 'jump']);
-    Route::get('days/{day}/previous', [\App\Http\Controllers\API\DayController::class, 'previous']);
-    Route::get('days/{day}/next', [\App\Http\Controllers\API\DayController::class, 'next']);
-    Route::get('today', [\App\Http\Controllers\API\DayController::class, 'today']);
-    Route::get('dashboard', [\App\Http\Controllers\API\StatisticController::class, 'index']);
-    Route::get('gratitude', [\App\Http\Controllers\API\GratitudeController::class, 'index']);
+    // Available before the email address is confirmed.
+    Route::post('email/verification-notification', [\App\Http\Controllers\API\EmailVerificationController::class, 'store'])
+        ->middleware('throttle:6,1');
 
     Route::get('/profile', [\App\Http\Controllers\API\ProfileController::class, 'edit']);
     Route::patch('/profile', [\App\Http\Controllers\API\ProfileController::class, 'update']);
-    Route::get('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'show']);
-    Route::patch('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'update']);
     Route::delete('/profile', [\App\Http\Controllers\API\ProfileController::class, 'destroy']);
+    Route::post('/profile/logout-other-devices', [\App\Http\Controllers\API\ProfileController::class, 'logoutOtherDevices']);
+    Route::get('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'show']);
 
-    Route::get('year/months/{year?}', [\App\Http\Controllers\API\YearMonthController::class, 'index']);
-    Route::get('year/{year?}', [\App\Http\Controllers\API\YearController::class, 'index']);
+    // Everything else needs a confirmed email address.
+    Route::middleware('verified')->group(function () {
+        Route::resource('tags', \App\Http\Controllers\API\TagController::class, ['as' => 'api'])->except(['show', 'create']);
+        Route::get('days/calendar', [\App\Http\Controllers\API\QuickDayController::class, 'index']);
+        Route::post('days/exists', [\App\Http\Controllers\API\QuickDayController::class, 'exists']);
+        Route::resource('days', \App\Http\Controllers\API\DayController::class, ['as' => 'api'])->except(['show']);
+        Route::post('days/jump', [\App\Http\Controllers\API\DayController::class, 'jump']);
+        Route::get('days/{day}/previous', [\App\Http\Controllers\API\DayController::class, 'previous']);
+        Route::get('days/{day}/next', [\App\Http\Controllers\API\DayController::class, 'next']);
+        Route::get('today', [\App\Http\Controllers\API\DayController::class, 'today']);
+        Route::get('dashboard', [\App\Http\Controllers\API\StatisticController::class, 'index']);
+        Route::get('gratitude', [\App\Http\Controllers\API\GratitudeController::class, 'index']);
 
-    Route::get('year-in-review', [\App\Http\Controllers\API\YearInReviewController::class, 'show']);
+        Route::patch('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'update']);
 
-    Route::post('export', \App\Http\Controllers\ExportController::class);
+        Route::get('year/months/{year?}', [\App\Http\Controllers\API\YearMonthController::class, 'index']);
+        Route::get('year/{year?}', [\App\Http\Controllers\API\YearController::class, 'index']);
+
+        Route::get('year-in-review', [\App\Http\Controllers\API\YearInReviewController::class, 'show']);
+
+        Route::post('export', \App\Http\Controllers\ExportController::class);
+    });
 });

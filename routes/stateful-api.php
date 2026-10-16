@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => ['auth', 'track']], function () {
+Route::group(['middleware' => ['auth', 'track', 'verified']], function () {
     Route::post('tags', [\App\Http\Controllers\API\QuickTagController::class, 'store']);
 
     Route::get('days', [\App\Http\Controllers\API\QuickDayController::class, 'index']);

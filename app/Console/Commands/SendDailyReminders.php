@@ -27,6 +27,7 @@ class SendDailyReminders extends Command
 
         User::query()
             ->where('reminder_enabled', '=', true)
+            ->whereNotNull('email_verified_at')
             ->where('email', '<>', (string) config('calendar.demo.email'))
             ->each(function (User $user) use (&$sent) {
                 $now = $user->localNow();

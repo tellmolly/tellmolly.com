@@ -1,3 +1,6 @@
+@if (! $user->hasVerifiedEmail())
+<p class="mb-0">Confirm your email address to turn on daily reminders. You can request a new confirmation link above.</p>
+@else
 <p>Get an email reminder to log your day. It is only sent if you have not logged the day yet.</p>
 
 <form method="post" action="{{ route('profile.reminders.update') }}">
@@ -49,3 +52,4 @@
         Save
     </button>
 </form>
+@endif

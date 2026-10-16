@@ -27,6 +27,17 @@ class ProfileController extends Controller
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
+    public function logoutOtherDevices(Request $request): RedirectResponse
+    {
+        try {
+            (new ProfileService)->logoutOtherDevices($request);
+        } catch (\RuntimeException) {
+            return Redirect::route('profile.edit');
+        }
+
+        return Redirect::route('profile.edit')->with('status', 'other-devices-logged-out');
+    }
+
     public function destroy(Request $request): RedirectResponse
     {
         try {
