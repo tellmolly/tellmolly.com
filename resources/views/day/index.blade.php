@@ -52,7 +52,7 @@
                                     @endforeach
     </span>
                                    <span>
-{!! $day->category->name !!}
+<x-mood :category="$day->category"/>
                                    </span>
                                 </a>
                             @endforeach

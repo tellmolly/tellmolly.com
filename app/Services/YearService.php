@@ -10,7 +10,7 @@ class YearService
     public function index(Request $request, $year = null): array
     {
         if ($year === null) {
-            $year = now()->year;
+            $year = $request->user()->localNow()->year;
         }
 
         if (intval($year) === 0) {

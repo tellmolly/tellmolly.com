@@ -13,6 +13,24 @@
 
     <meta name="description" content="{{ $description }}">
     <link rel="manifest" href="{{ url('app.webmanifest') }}" />
+    <link rel="icon" href="{{ url('favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ url('apple-touch-icon.png') }}">
+    <meta name="theme-color" content="#0d6efd">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Tell Molly">
+
+    <script>
+        // Mark the page when it runs as an installed app (home screen), before
+        // it renders, so styles can adapt without a flash. Nothing changes in a
+        // normal browser tab.
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            document.documentElement.classList.add('pwa');
+            if (window.history.length > 1) {
+                document.documentElement.classList.add('pwa-can-go-back');
+            }
+        }
+    </script>
 
     <meta property="og:title" content="{{ $title }}"/>
     <meta property="og:type" content="website"/>
@@ -30,6 +48,10 @@
     <div id="app">
         <nav class="navbar navbar-expand-md bg-light navbar-laravel p-3 mb-3 border-bottom">
             <div class="container">
+                {{-- Installed apps have no browser back button, so offer one. --}}
+                <button type="button" class="btn btn-link link-dark pwa-back-button me-2 px-1" onclick="window.history.back()" aria-label="{{ __('Back') }}">
+                    <i class="bi bi-chevron-left" aria-hidden="true"></i>
+                </button>
                 @auth
                     <a class="navbar-brand text-logo" href="{{ route('days.create') }}">
                         {{ config('app.name', 'Laravel') }}
@@ -65,7 +87,8 @@
                                 <a class="nav-link {{ request()->route()->named('year-month.index') ? 'active' : '' }}" href="{{ route('year-month.index') }}">{{ __('Year in Months') }}</a>
                             </li>
 
-                            @if(auth()->user()->created_at->year < date('Y') && (\Carbon\Carbon::now()->lessThan(date('15-01-Y'))|| \Carbon\Carbon::now()->greaterThan(date('24-12-Y'))))
+                            @php($localNow = auth()->user()->localNow())
+                            @if(auth()->user()->created_at->year < $localNow->year && ($localNow->format('m-d') < '01-15' || $localNow->format('m-d') >= '12-24'))
                             <li class="nav-item">
                                 <a class="nav-link {{ request()->route()->named('year-in-review.show') ? 'active' : '' }}" href="{{ route('year-in-review.show') }}">{{ __('Year in Review') }}</a>
                             </li>

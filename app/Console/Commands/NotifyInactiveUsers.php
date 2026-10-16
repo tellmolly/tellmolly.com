@@ -22,8 +22,8 @@ class NotifyInactiveUsers extends Command
                     ->from('days')
                     ->whereColumn('users.id', 'user_id');
             })
-            ->where('last_login_at', '<', now()->subDays(30)->format('Y-m-d') . ' 00:00:00')
-            ->where('last_login_at', '>=', now()->subDays(31)->format('Y-m-d') . ' 00:00:00')
+            ->where('last_active_at', '<', now()->subDays(30)->format('Y-m-d') . ' 00:00:00')
+            ->where('last_active_at', '>=', now()->subDays(31)->format('Y-m-d') . ' 00:00:00')
             ->get();
 
         $this->info($inactiveNewUsers->count() . ' inactive new users');
@@ -38,8 +38,8 @@ class NotifyInactiveUsers extends Command
                     ->from('days')
                     ->whereColumn('users.id', 'user_id');
             })
-            ->where('last_login_at', '<', now()->subDays(180)->format('Y-m-d') . ' 00:00:00')
-            ->where('last_login_at', '>=', now()->subDays(181)->format('Y-m-d') . ' 00:00:00')
+            ->where('last_active_at', '<', now()->subDays(180)->format('Y-m-d') . ' 00:00:00')
+            ->where('last_active_at', '>=', now()->subDays(181)->format('Y-m-d') . ' 00:00:00')
             ->get();
 
         $this->info($inactiveExistingUsers->count() . ' inactive existing users');

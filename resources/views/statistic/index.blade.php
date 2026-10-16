@@ -15,10 +15,10 @@
                             <h5 class="card-title">How was today?</h5>
                             <form method="POST" action="{{ route('days.store') }}" class="d-flex gap-2">
                                 @csrf
-                                <input type="hidden" name="date" value="{{ now()->format('Y-m-d') }}">
+                                <input type="hidden" name="date" value="{{ $localToday }}">
                                 <input type="hidden" name="quick" value="1">
                                 @foreach($categories as $category)
-                                    <button type="submit" name="category_id" value="{{ $category->id }}" class="btn btn-outline-primary flex-fill p-2" style="font-size: xx-large; border-radius: .5rem;">{!! $category->name !!}</button>
+                                    <button type="submit" name="category_id" value="{{ $category->id }}" class="btn btn-outline-primary flex-fill p-2" style="font-size: xx-large; border-radius: .5rem;"><x-mood :category="$category"/></button>
                                 @endforeach
                             </form>
                         </div>
@@ -31,7 +31,7 @@
                             <p class="card-text text-muted mb-1">Remember this day?</p>
                             <h5 class="card-title">
                                 <a href="{{ route('days.edit', $goodDay) }}" style="text-decoration: none">
-                                    {!! $goodDay->category->name !!} {{ DateTime::createFromFormat('Y-m-d', $goodDay->date)->format('l, j F Y') }}
+                                    <x-mood :category="$goodDay->category"/> {{ DateTime::createFromFormat('Y-m-d', $goodDay->date)->format('l, j F Y') }}
                                 </a>
                             </h5>
                             <p class="card-subtitle text-muted mb-2">{{ \Carbon\Carbon::parse($goodDay->date)->diffForHumans() }}</p>
@@ -84,13 +84,13 @@
                                 <h5 class="card-title">
                                     @if($lastWeek)
                                     <a href="{{ route('days.edit', $lastWeek) }}" style="text-decoration: none">
-                                        {!! $lastWeek->category->name !!}
+                                        <x-mood :category="$lastWeek->category"/>
                                     </a>
                                     @else
                                     No entry
                                     @endif
                                 </h5>
-                                <p class="card-text">Last {{ now()->subWeek()->format('l') }}</p>
+                                <p class="card-text">Last {{ \Carbon\Carbon::parse($localToday)->subWeek()->format('l') }}</p>
                             </div>
                         </div>
                     </div>
@@ -100,13 +100,13 @@
                                 <h5 class="card-title">
                                     @if($onThisDay)
                                         <a href="{{ route('days.edit', $onThisDay) }}" style="text-decoration: none">
-                                            {!! $onThisDay->category->name !!}
+                                            <x-mood :category="$onThisDay->category"/>
                                         </a>
                                     @else
                                         No entry
                                     @endif
                                 </h5>
-                                <p class="card-text">On this day {{ now()->subYear()->format('Y') }}</p>
+                                <p class="card-text">On this day {{ \Carbon\Carbon::parse($localToday)->subYear()->format('Y') }}</p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                                     [\App\Models\Category::AVERAGE, 'Average', $averageDays1Month, $averageDays],
                                 ] as [$order, $label, $lastMonth, $overall])
                                     <tr>
-                                        <th scope="row" class="fw-normal">{!! $categories->firstWhere('order', $order)?->name !!} {{ $label }}</th>
+                                        <th scope="row" class="fw-normal"><span aria-hidden="true">{!! $categories->firstWhere('order', $order)?->name !!}</span> {{ $label }}</th>
                                         <td class="text-end">{{ $lastMonth }}</td>
                                         <td class="text-end">{{ $overall }}</td>
                                     </tr>

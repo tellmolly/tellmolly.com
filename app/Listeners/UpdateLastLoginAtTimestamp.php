@@ -15,6 +15,7 @@ class UpdateLastLoginAtTimestamp
         }
 
         $event->user->last_login_at = now();
+        $event->user->last_active_at = now();
         $event->user->update();
     }
 }

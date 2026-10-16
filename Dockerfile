@@ -43,6 +43,12 @@ RUN mkdir -p /home/dockeruser \
 
 RUN chown -R dockeruser:dockergroup /app
 
+# Runs migrations before php-fpm starts; see docker/entrypoint.sh. The init and
+# scheduler services override the entrypoint, so only the app container migrates.
+COPY docker/entrypoint.sh /usr/local/bin/app-entrypoint
+RUN chmod +x /usr/local/bin/app-entrypoint
+
 USER dockeruser
 
+ENTRYPOINT ["app-entrypoint"]
 CMD ["php-fpm"]

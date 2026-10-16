@@ -18,6 +18,14 @@
                 </div>
 
                 <div class="card mb-3">
+                    <div class="card-header">{{ __('Daily reminder') }}</div>
+
+                    <div class="card-body">
+                        @include('profile.partials.update-reminder-settings-form')
+                    </div>
+                </div>
+
+                <div class="card mb-3">
                     <div class="card-header">{{ __('Update password') }}</div>
 
                     <div class="card-body">

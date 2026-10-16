@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 
 class StreakService
@@ -25,11 +26,12 @@ class StreakService
      * yesterday still counts, so it isn't lost before today has been logged.
      *
      * @param Collection<int, string> $dates Y-m-d dates
+     * @param CarbonInterface|null $today "Now" in the user's time zone; defaults to the app's
      */
-    public function current(Collection $dates): int
+    public function current(Collection $dates, ?CarbonInterface $today = null): int
     {
         $logged = $dates->flip();
-        $day = CarbonImmutable::today();
+        $day = CarbonImmutable::parse(($today ?? CarbonImmutable::now())->format('Y-m-d'));
 
         if ( ! $logged->has($day->format('Y-m-d'))) {
             $day = $day->subDay();

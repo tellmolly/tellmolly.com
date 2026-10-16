@@ -50,7 +50,7 @@
                                                   style="background-color: {{ $childTag->color }}; color: {{ $childTag->fontColor() }}">{{ $childTag->name }}</span>
                                         @endforeach
                                     </span>
-                                    <span>{!! $day->category->name !!}</span>
+                                    <span><x-mood :category="$day->category"/></span>
                                 </a>
                             @endforeach
                         </div>

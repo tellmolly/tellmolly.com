@@ -6,6 +6,7 @@ use App\Http\Controllers\DemoController;
 use App\Http\Controllers\GratitudeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReminderSettingsController;
 use App\Http\Controllers\StatisticController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TodayController;
@@ -38,6 +39,12 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('page.privacy-policy');
 Route::get('/faq', [PageController::class, 'faq'])->name('page.faq');
 
+// Linked from reminder emails, so it works without signing in.
+Route::middleware('signed:relative')->group(function () {
+    Route::get('reminders/unsubscribe/{user}', [ReminderSettingsController::class, 'confirmUnsubscribe'])->name('reminders.unsubscribe');
+    Route::post('reminders/unsubscribe/{user}', [ReminderSettingsController::class, 'unsubscribe']);
+});
+
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('login', [AuthenticatedSessionController::class, 'store'])->middleware('honeypot');
@@ -60,7 +67,7 @@ Route::middleware('guest')->group(function () {
     }
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'track']], function () {
     Route::resource('tags', TagController::class)->except(['show']);
     Route::resource('days', DayController::class)->except(['show']);
     Route::post('days/jump', [DayController::class, 'jump'])->name('days.jump');
@@ -72,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/reminders', [ReminderSettingsController::class, 'update'])->name('profile.reminders.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('calendar', [CalendarController::class, 'index'])->name('calendar');

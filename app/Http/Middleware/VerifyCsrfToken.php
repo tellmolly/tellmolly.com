@@ -12,6 +12,6 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        'reminders/unsubscribe/*', // one-click unsubscribe from mail clients (signed URL)
     ];
 }

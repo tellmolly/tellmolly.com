@@ -1,6 +1,6 @@
 @auth
     @foreach(config('greetings') as $key => $message)
-        @if(date('m-d') == $key)
+        @if(auth()->user()->localNow()->format('m-d') == $key)
             <div class="container">
                 <div class="alert alert-info" role="alert">
                     {{ $message }}

@@ -104,3 +104,17 @@ div.year-month .fc-daygrid-day-events {
         color: #2d2d2d !important;
     }
 }
+
+// Installed app (home screen) tweaks; the "pwa" classes are set by the script
+// in layouts/app.blade.php. A normal browser tab looks exactly as before.
+.pwa-back-button {
+    display: none;
+}
+
+.pwa.pwa-can-go-back .pwa-back-button {
+    display: inline-block;
+}
+
+.pwa body {
+    -webkit-tap-highlight-color: transparent;
+}

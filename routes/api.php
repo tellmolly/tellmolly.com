@@ -22,7 +22,7 @@ Route::middleware('guest')->group(function () {
     Route::post('forgot-password', [\App\Http\Controllers\API\ForgotPasswordController::class, 'store']);
 });
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'track']], function () {
     Route::resource('tags', \App\Http\Controllers\API\TagController::class, ['as' => 'api'])->except(['show', 'create']);
     Route::get('days/calendar', [\App\Http\Controllers\API\QuickDayController::class, 'index']);
     Route::post('days/exists', [\App\Http\Controllers\API\QuickDayController::class, 'exists']);
@@ -36,6 +36,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/profile', [\App\Http\Controllers\API\ProfileController::class, 'edit']);
     Route::patch('/profile', [\App\Http\Controllers\API\ProfileController::class, 'update']);
+    Route::get('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'show']);
+    Route::patch('/profile/reminders', [\App\Http\Controllers\API\ReminderSettingsController::class, 'update']);
     Route::delete('/profile', [\App\Http\Controllers\API\ProfileController::class, 'destroy']);
 
     Route::get('year/months/{year?}', [\App\Http\Controllers\API\YearMonthController::class, 'index']);

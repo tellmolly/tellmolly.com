@@ -15,7 +15,8 @@ class YearInReviewService
     {
         // The review is offered from late December into mid-January, so it
         // covers the current year in December and the previous one otherwise.
-        $year = now()->month === 12 ? now()->year : now()->year - 1;
+        $now = $request->user()->localNow();
+        $year = $now->month === 12 ? $now->year : $now->year - 1;
 
         $categories = Category::query()->whereIn('order', [
             Category::GREAT,

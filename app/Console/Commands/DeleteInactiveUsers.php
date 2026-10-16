@@ -14,7 +14,7 @@ class DeleteInactiveUsers extends Command
     public function handle(): void
     {
         $inactiveUsersQuery = User::query()
-            ->where('last_login_at', '<', now()->subDays(30 + 180)->format('Y-m-d') . ' 00:00:00');
+            ->where('last_active_at', '<', now()->subDays(30 + 180)->format('Y-m-d') . ' 00:00:00');
 
         $affected = $inactiveUsersQuery->count();
 

@@ -3,7 +3,7 @@
 
 We're just letting you know that there has been no activity in the last {{ $inactive }} days.
 
-Your account is automatically going to be deleted if you do not sign in within the next {{ $remaining }} days.
+Your account is automatically going to be deleted if you do not sign in or use the Tell Molly app within the next {{ $remaining }} days.
 
 @if (config('calendar.actions.reset'))
 If you forgot your password you can [request a new password]({{ route('password.request') }}).

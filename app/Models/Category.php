@@ -25,4 +25,19 @@ class Category extends Model
     {
         return $this->hasMany(Day::class);
     }
+
+    /**
+     * A word for the mood, for screen readers; the name is just a smiley.
+     */
+    public function label(): string
+    {
+        return match ($this->order) {
+            self::GREAT => 'Great',
+            self::GOOD => 'Good',
+            self::AVERAGE => 'Average',
+            self::BAD => 'Bad',
+            self::WORST => 'Worst',
+            default => 'Mood',
+        };
+    }
 }

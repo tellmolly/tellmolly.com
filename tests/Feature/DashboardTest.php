@@ -30,7 +30,10 @@ class DashboardTest extends TestCase
 
         $this->actingAs($user)->get('/dashboard')
             ->assertOk()
-            ->assertSee('How was today?');
+            ->assertSee('How was today?')
+            // The smiley buttons carry a word for screen readers.
+            ->assertSee('<span class="visually-hidden">Great</span>', false)
+            ->assertSee('<span class="visually-hidden">Worst</span>', false);
     }
 
     public function test_dashboard_does_not_ask_about_today_once_it_is_logged(): void

@@ -23,7 +23,7 @@
                                     <a href="{{ route('days.edit', $day) }}" class="list-group-item list-group-item-action">
                                         <div class="d-flex justify-content-between align-items-center text-muted small mb-1">
                                             <span>{{ DateTime::createFromFormat('Y-m-d', $day->date)->format('l, j F Y') }}</span>
-                                            <span>{!! $day->category->name !!}</span>
+                                            <span><x-mood :category="$day->category"/></span>
                                         </div>
                                         {{ $day->grateful_for }}
                                     </a>

@@ -6,7 +6,6 @@ use App\Http\Requests\DayEditRequest;
 use App\Http\Requests\DayStoreRequest;
 use App\Models\Category;
 use App\Models\Day;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DayService
@@ -26,7 +25,7 @@ class DayService
         ]);
 
         return [
-            'day' => new Day(['date' => $validated['initial'] ?? date('Y-m-d')]),
+            'day' => new Day(['date' => $validated['initial'] ?? $request->user()->localToday()]),
             'categories' => Category::orderBy('order')->get(),
             'tags' => $request->user()->tags()->whereNull('archived_at')->get(),
             'selectedTags' => []
@@ -107,7 +106,7 @@ class DayService
 
     public function today(Request $request): ?Day
     {
-        $today = Carbon::now()->toDateString();
+        $today = $request->user()->localToday();
 
         return $request->user()->days()
             ->where('date', $today)
