@@ -71,11 +71,11 @@
 
 @import 'stackedCards';
 
-.fc-day.fc-daygrid-day {
+.tm-day-cell {
     cursor: pointer;
 }
 
-div.year-month .fc-daygrid-day-events {
+div.year-month .tm-day-events {
     display: none;
 }
 //div.year-month {

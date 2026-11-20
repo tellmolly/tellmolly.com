@@ -44,8 +44,8 @@ class YearMonthService
 
         $days = $days->map(function ($day) {
             return (object)[
-                'backgroundColor' => $day->category->color,
-                'textColor' => $day->category->font_color,
+                'color' => $day->category->color,
+                'contrastColor' => $day->category->font_color,
                 'start' => $day->date,
                 'display' => 'background',
                 'url' => route('days.edit', $day)

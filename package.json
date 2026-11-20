@@ -17,14 +17,13 @@
         "vite": "^8.0"
     },
     "dependencies": {
-        "@fullcalendar/bootstrap5": "^6.0.2",
-        "@fullcalendar/core": "^6.0.2",
-        "@fullcalendar/daygrid": "^6.0.2",
-        "@fullcalendar/interaction": "^6.0.2",
-        "@sweetalert2/theme-bootstrap-4": "^3.2.0",
+        "@fullcalendar/bootstrap5": "^7.1.5",
+        "@sweetalert2/theme-bootstrap-4": "^5.0.27",
         "autosize": "^6.0",
-        "invert-color": "^2.0.0",
+        "fullcalendar": "^7.1.5",
+        "invert-color": "^3.0.0",
         "moment": "^2.29",
-        "sweetalert2": "^11.4"
+        "sweetalert2": "^11.4",
+        "temporal-polyfill": "^1.0.8"
     }
 }

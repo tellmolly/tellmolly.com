@@ -3,11 +3,26 @@ import './bootstrap';
 /*
  * Calendar
  */
-import {Calendar} from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
+import {Calendar} from 'fullcalendar';
+import dayGridPlugin from 'fullcalendar/daygrid';
+import interactionPlugin from 'fullcalendar/interaction';
 import bootstrapPlugin from '@fullcalendar/bootstrap5';
-import interactionPlugin from '@fullcalendar/interaction';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // needs additional webpack config!
+import 'bootstrap-icons/font/bootstrap-icons.css';
+// FullCalendar 7 no longer bundles its CSS
+import 'fullcalendar/skeleton.css';
+import '@fullcalendar/bootstrap5/theme.css';
+
+// FullCalendar 7 no longer renders the internal fc-* class names, so the
+// classes used by the click handlers and app.scss are set explicitly.
+const calendarClassOptions = {
+    backgroundEventClass: 'tm-bg-event',
+    dayCellClass: 'tm-day-cell',
+    dayCellInnerClass: 'tm-day-events',
+};
+
+function isBackgroundEventClick(info) {
+    return info.jsEvent.target.closest('.tm-bg-event') !== null;
+}
 
 if (document.getElementById("calendar")) {
     const calendarEl = document.getElementById('calendar');
@@ -22,17 +37,17 @@ if (document.getElementById("calendar")) {
         editable: false,
         dayMaxEventRows: 6, // allow "more" link when too many events
         events: '/stateful-api/days',
-        themeSystem: 'bootstrap5',
+        ...calendarClassOptions,
         firstDay: 1, // monday
         plugins: [bootstrapPlugin, dayGridPlugin, interactionPlugin],
 
         eventClick: function (info) {
-            if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+            if (isBackgroundEventClick(info)) {
                 window.location.href = info.event.url
             }
         },
         dateClick: function (info) {
-            if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+            if (isBackgroundEventClick(info)) {
                 // Handled in eventClick
                 return;
             }
@@ -242,18 +257,18 @@ for (const month of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]) {
                     )
                 }
             },
-            themeSystem: 'bootstrap5',
+            ...calendarClassOptions,
             firstDay: 1, // monday
             contentHeight: "auto",
             plugins: [bootstrapPlugin, dayGridPlugin, interactionPlugin],
 
             eventClick: function (info) {
-                if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+                if (isBackgroundEventClick(info)) {
                     window.location.href = info.event.url
                 }
             },
             dateClick: function (info) {
-                if (info.jsEvent.target.classList.contains('fc-bg-event')) {
+                if (isBackgroundEventClick(info)) {
                     // Handled in eventClick
                     return;
                 }

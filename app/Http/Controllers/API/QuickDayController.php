@@ -17,8 +17,8 @@ class QuickDayController extends Controller
         return $days->flatMap(function ($day) {
             $events = [
                 [
-                    'backgroundColor' => $day->category->color,
-                    'textColor' => $day->category->font_color,
+                    'color' => $day->category->color,
+                    'contrastColor' => $day->category->font_color,
                     'start' => $day->date,
                     'display' => 'background',
                     'url' => route('days.edit', $day)
@@ -26,8 +26,7 @@ class QuickDayController extends Controller
             ];
             foreach ($day->tags as $tag) {
                 $events[] = [
-                    'backgroundColor' => $tag->color,
-                    'borderColor' => $tag->color,
+                    'color' => $tag->color,
                     'title' => $tag->name,
                     'start' => $day->date,
                     'url' => route('days.edit', $day)
