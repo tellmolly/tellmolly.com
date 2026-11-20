@@ -11,7 +11,7 @@ ARG APP_IMAGE=tellmolly-com:latest
 
 FROM ${APP_IMAGE} AS app
 
-FROM nginx:1.27-alpine
+FROM nginx:1.31-alpine
 
 COPY docker/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY --from=app /app/public /app/public
