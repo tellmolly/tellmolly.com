@@ -18,10 +18,8 @@
     },
     "dependencies": {
         "@fullcalendar/bootstrap5": "^7.1.5",
-        "@sweetalert2/theme-bootstrap-4": "^5.0.27",
         "autosize": "^6.0",
         "fullcalendar": "^7.1.5",
-        "invert-color": "^3.0.0",
         "moment": "^2.29",
         "sweetalert2": "^11.4",
         "temporal-polyfill": "^1.0.8"
